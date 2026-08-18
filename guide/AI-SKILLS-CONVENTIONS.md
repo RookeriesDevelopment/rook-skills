@@ -100,8 +100,8 @@ clients** and are consumed by autonomous agents.
 2. **No secrets, ever.** Code samples use placeholders (`CLIENT_UUID`, `SECRET`) — never a real `client_uuid`,
    secret, token, or `.env` value.
 3. **Naming invariants must be correct** (agents get these wrong constantly):
-   - `client_uuid` — **never** `customer_id`.
-   - `user_id` / `external_identifier`.
+   - `client_uuid` — the client identifier, **never** `customer_id`.
+   - `user_id` - the identifier if the app end-user whose data will be synced.
    - `environment` — the SDK environment is set to `SANDBOX` or `PRODUCTION` (e.g. `RookEnvironment.SANDBOX`);
      each environment has its own credentials.
 4. **Docs are the single source of truth.** Skill content is derived from `docs/ROOKConnect/SDKs/<Platform>/`.
