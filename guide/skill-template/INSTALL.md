@@ -2,26 +2,24 @@
 
 **Skill:** `rook-<platform>-<data-source>` · **Author:** ROOK
 
-> Replace `rook-org` below with the actual GitHub org once the `rook-skills` repo is created.
-
 ## Option A — `skills` CLI (recommended)
 
 Installs into the correct directory for your AI tool automatically (Claude Code, Cursor, Codex, and 75+ others):
 
 ```bash
-npx skills add rook-org/rook-skills --skill rook-<platform>-<data-source>
+npx skills add RookeriesDevelopment/rook-skills --skill rook-<platform>-<data-source>
 ```
 
 Target a specific agent and skip prompts:
 
 ```bash
-npx skills add rook-org/rook-skills --skill rook-<platform>-<data-source> -a claude-code -y
+npx skills add RookeriesDevelopment/rook-skills --skill rook-<platform>-<data-source> -a claude-code -y
 ```
 
 ## Option B — clone + copy (no Node.js required)
 
 ```bash
-git clone --depth 1 https://github.com/rook-org/rook-skills
+git clone --depth 1 https://github.com/RookeriesDevelopment/rook-skills
 
 # Claude / Claude Code:
 cp -r rook-skills/skills/rook-<platform>-<data-source> .claude/skills/

@@ -136,13 +136,13 @@ else on our side. A client installs one skill with a single command; the CLI det
 writes to that agent's skills directory automatically:
 
 ```bash
-npx skills add rook-org/rook-skills --skill rook-{platform}-{data-source}
+npx skills add RookeriesDevelopment/rook-skills --skill rook-{platform}-{data-source}
 ```
 
 To target agents explicitly (and skip prompts), add `-a` and `-y`:
 
 ```bash
-npx skills add rook-org/rook-skills --skill rook-{platform}-{data-source} -a claude-code -a cursor -y
+npx skills add RookeriesDevelopment/rook-skills --skill rook-{platform}-{data-source} -a claude-code -a cursor -y
 ```
 
 **Fallback — classic clone + copy.** Always supported, for clients who can't or prefer not to run `npx`
@@ -150,7 +150,7 @@ npx skills add rook-org/rook-skills --skill rook-{platform}-{data-source} -a cla
 folder into the agent's skills directory:
 
 ```bash
-git clone --depth 1 https://github.com/rook-org/rook-skills
+git clone --depth 1 https://github.com/RookeriesDevelopment/rook-skills
 
 # Claude / Claude Code:
 cp -r rook-skills/skills/rook-{platform}-{data-source} .claude/skills/
@@ -182,7 +182,7 @@ Each SDK's Quickstart/Introduction page gets a banner linking to *its* skill —
 > ⚡ **Accelerate your integration with AI.** Add the `rook-{platform}-{data-source}` skill to your AI coding tool
 > (Claude, Codex, Antigravity, Cursor…) and let it scaffold the integration for you:
 > ```bash
-> npx skills add rook-org/rook-skills --skill rook-{platform}-{data-source}
+> npx skills add RookeriesDevelopment/rook-skills --skill rook-{platform}-{data-source}
 > ```
 
 ---
