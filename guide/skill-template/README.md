@@ -16,7 +16,7 @@ This folder is the starting skeleton every ROOK SDK skill is built from, per
    - `<Platform>` / `<Data Source>` → human-readable form for prose.
 4. Rename `examples/` snippets to the real extension (`.kt` / `.swift` / `.dart`).
 5. Keep it honest against the hard rules in the conventions doc: self-contained, no secrets, correct
-   invariants (`client_uuid`, `user_id`/`external_identifier`, `environment` = SANDBOX/PRODUCTION),
+   invariants (`client_uuid`, `user_id`, `environment` = SANDBOX/PRODUCTION),
    docs as the single source of truth.
 
 ## Structure

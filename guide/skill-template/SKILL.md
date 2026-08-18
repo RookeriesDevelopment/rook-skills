@@ -23,7 +23,7 @@ background sync in a <Platform> project.
 
 ## Invariants — do not get these wrong
 
-- **Identifiers:** use `client_uuid` (never `customer_id`) and `user_id` / `external_identifier`.
+- **Identifiers:** use `client_uuid` (never `customer_id`) and `user_id`.
 - **Environment:** the SDK environment is `SANDBOX` or `PRODUCTION`; each has its **own** credentials.
   Typically SANDBOX for debug builds, PRODUCTION for release.
 - **Secrets:** never hardcode or print real credentials — use placeholders `CLIENT_UUID` / `SECRET`.
@@ -35,7 +35,7 @@ background sync in a <Platform> project.
 Open the reference for the step you're on:
 
 1. **Setup & initialization** (install, configure, choose environment) → `references/setup-and-init.md`
-2. **Register / update the user** (`user_id` / `external_identifier`) → `references/setup-and-init.md`
+2. **Register / update the user** (`user_id`) → `references/setup-and-init.md`
 3. **Availability & permissions** → `references/permissions.md`
 4. **Sync health data** (manual) → `references/sync.md`
 5. **Sync health data** (automatic) → `references/background.md`

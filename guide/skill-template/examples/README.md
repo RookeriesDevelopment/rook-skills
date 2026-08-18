@@ -6,7 +6,7 @@ successful sync.
 - Name them with the real extension: `quickstart.kt` (Android), `quickstart.swift` (iOS),
   `quickstart.dart` (Flutter), etc.
 - Use placeholders `CLIENT_UUID` / `SECRET` — never real credentials.
-- Use `client_uuid`, `user_id` / `external_identifier`, and the `SANDBOX` / `PRODUCTION` environment
+- Use `client_uuid`, `user_id`, and the `SANDBOX` / `PRODUCTION` environment
   correctly.
 - Snippets should compile/run as-is against the current stable SDK version.
 

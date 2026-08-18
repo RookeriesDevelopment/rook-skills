@@ -38,7 +38,7 @@ TODO: minimal init snippet using CLIENT_UUID, SECRET, and the SANDBOX/PRODUCTION
 
 ## Register / update the user
 
-TODO: how to register or update the user with `user_id` / `external_identifier`.
+TODO: how to register or update the user with `user_id`.
 
 - Never use `customer_id`.
 - TODO: note when the user must be registered relative to permissions/sync.
