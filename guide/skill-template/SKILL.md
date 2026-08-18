@@ -37,8 +37,8 @@ Open the reference for the step you're on:
 1. **Setup & initialization** (install, configure, choose environment) → `references/setup-and-init.md`
 2. **Register / update the user** (`user_id` / `external_identifier`) → `references/setup-and-init.md`
 3. **Availability & permissions** → `references/permissions.md`
-4. **Sync health data** (manual + automatic) → `references/sync.md`
-5. **Background delivery / steps / calories** *(if the data source supports it)* → `references/background.md`
+4. **Sync health data** (manual) → `references/sync.md`
+5. **Sync health data** (automatic) → `references/background.md`
 6. **Troubleshooting** (known exceptions + best practices) → `references/troubleshooting.md`
 
 ## Examples

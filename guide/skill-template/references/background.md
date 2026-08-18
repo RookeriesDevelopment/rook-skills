@@ -1,4 +1,4 @@
-# Background delivery / steps / calories — <Platform> · <Data Source>
+# Background Sync — <Platform> · <Data Source>
 
 <!-- Include this file only if the data source supports background features. Otherwise delete it and remove
      the pointer from SKILL.md. -->
