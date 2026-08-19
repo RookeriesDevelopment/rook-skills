@@ -20,9 +20,8 @@ still in an alpha state, so results are not always as expected.
 
 - **Android Studio** Narwhal 4 Feature Drop | 2025.1.4 or higher is recommended.
 - **`minSdk` 26**, **`targetSdk` 36** (set in the app module `build.gradle`).
-- **ROOK SDK version** — keep in sync with the official docs; never invent a version:
-  - Latest stable: **4.1.0**
-  - LTS: **2.4.0** (supported until September 27, 2026)
+- **ROOK SDK version** — this skill targets the **V4** line; use **4.1.0**. Keep in sync with the
+  official docs; never invent a version.
 
 ## Install the dependency
 
