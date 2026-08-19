@@ -9,8 +9,6 @@ description: >
 
 # ROOK iOS — Apple Health SDK
 
-<!-- SKILL.md is the router. Keep it short. Put the detail in references/ so agents load only what they need. -->
-
 ## What this skill does
 
 Guides a developer through integrating the ROOK Apple Health SDK (RookSDK) on iOS app: SDK setup and initialization, user registration, checking Health Connect

@@ -1,8 +1,5 @@
 # Setup & initialization — iOS · Apple Health
 
-<!-- FOLDED CORE: this file carries the shared auth/config/environment/user setup so the skill is self-contained.
-     Do NOT link out to a separate "core" skill. -->
-
 This covers installing the SDK, preparing the iOS project, initializing the SDK, and registering the
 user (`updateUserId`).
 
