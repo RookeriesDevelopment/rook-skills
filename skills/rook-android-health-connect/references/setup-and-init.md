@@ -1,8 +1,5 @@
 # Setup & initialization — Android · Health Connect
 
-<!-- FOLDED CORE: this file carries the shared auth/config/environment/user setup so the skill is self-contained.
-     Do NOT link out to a separate "core" skill. -->
-
 This covers installing the SDK, preparing the Android project, initializing the SDK, and registering the
 user (`updateUserID`).
 

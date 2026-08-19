@@ -10,8 +10,6 @@ description: >
 
 # ROOK Android — Health Connect SDK
 
-<!-- SKILL.md is the router. Keep it short. Put the detail in references/ so agents load only what they need. -->
-
 ## What this skill does
 
 Guides a developer through integrating the ROOK Health Connect SDK (`com.rookmotion.android:rook-sdk`)
