@@ -19,6 +19,8 @@ device is locked, background reads may also be delayed until the user unlocks th
 - **Dependency manager:** Swift Package Manager, or CocoaPods 1.12.0 or later.
 - **Device access:** HealthKit must be available on the device, and the user must authorize access to the
   health data types your app reads or writes.
+- **ROOK SDK version** — this skill targets the **V4** line; use **4.1.2**. Keep in sync with the
+  official docs; never invent a version.
 
 ## Project configuration
 
