@@ -44,6 +44,7 @@ background sync in a native Android (Kotlin) project.
 - `RookPermissionsManager` — Health Connect availability and permission requests.
 - `RookSyncManager` — manual sync of summaries and events.
 - `RookBackgroundSyncManager` — automatic/background sync.
+- `RookStepsCounter` — optional Android step-counter tracking (see the optional step below).
 
 ## Integration flow
 

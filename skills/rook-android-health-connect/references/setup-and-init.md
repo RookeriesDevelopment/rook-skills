@@ -49,7 +49,8 @@ re-declare them. They are merged into your app automatically and include Health 
 
 > Google may require an explanation (and sometimes a video) for the `FOREGROUND_SERVICE` /
 > `FOREGROUND_SERVICE_HEALTH` permissions, which power the Background Steps feature (tracking steps and
-> uploading them to ROOK servers). Ask users to opt in before enabling that feature.
+> uploading them to ROOK servers — see the optional `references/background-steps.md`). Ask users to opt in
+> before enabling that feature.
 
 ### Privacy policy intent filter
 
@@ -322,7 +323,7 @@ rookConfigurationManager.syncUserTimeZone().fold(
         // User timezone updated successfully
     },
     {
-      // Handle error
+        // Handle error
     },
 )
 ```
