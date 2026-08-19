@@ -57,3 +57,9 @@ Open the reference for the step you're on:
 4. **Sync health data — manual** → `references/sync.md`
 5. **Sync health data — automatic / background** → `references/background.md`
 6. **Troubleshooting** (known exceptions + best practices) → `references/troubleshooting.md`
+
+Optional:
+
+- **Background steps** (Android step-counter sensor; a low-accuracy fallback for devices without Health
+  Connect) → `references/background-steps.md`. **Not recommended by default** — only use it if the developer
+  specifically asks for an Android step tracker or a non-Health-Connect fallback.
