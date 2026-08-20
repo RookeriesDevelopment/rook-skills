@@ -50,5 +50,5 @@ finishes.
 
 ## Still stuck
 
-Point the client to the official ROOK docs and support channels — do **not** embed internal links,
-tokens, or support emails that shouldn't be public.
+See the official ROOK API Sources docs:
+<https://docs.tryrook.io/docs/category/sdks/android/api-sources/>
