@@ -21,12 +21,22 @@ Samsung's Health Data SDK. Because of that, it has hard device requirements:
 - **`minSdk` 29**, **`targetSdk` 36** (set in the app module `build.gradle`).
 - **ROOK SDK version** — this skill targets the **V4** line; use **4.1.0**. Keep in sync with the official
   docs; never invent a version.
-- **Samsung Health Data SDK `.aar`** — `samsung-health-data-api-1.1.0.aar` (bundled separately; see below).
-  This is Samsung's own artifact and has its **own** version (1.1.0), independent of the ROOK SDK (4.1.0).
+- **Samsung Health Data SDK `.aar`** — `samsung-health-data-api-1.1.0.aar` (downloaded and added to `libs/`;
+  see below). This is Samsung's own artifact and has its **own** version (1.1.0), independent of the ROOK
+  SDK (4.1.0).
 
 ## Install the dependency
 
-1. Copy the `samsung-health-data-api-1.1.0.aar` file into your app module's `libs/` directory.
+1. Download the Samsung Health Data SDK `.aar` into the project's **root** `libs/` directory, saved as
+   `samsung-health-data-api-1.1.0.aar` (the exact filename the gradle `files(...)` reference below expects,
+   and the path `$rootDir/libs/` resolves to). Download it straight into the project — no need to route
+   through a system Downloads folder:
+
+   ```bash
+   mkdir -p libs
+   curl -L -o libs/samsung-health-data-api-1.1.0.aar \
+     https://docs.tryrook.io/assets/files/samsung-health-data-api-1.1.0-b358f7bf60e47cf2ca1c4aab4ae1df3b.aar
+   ```
 
 2. In the app module `build.gradle`, set the SDK levels and add the dependencies:
 
