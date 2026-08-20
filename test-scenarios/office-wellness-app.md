@@ -26,8 +26,8 @@ Employees across the complex, on their own phones. They own a mix of devices, an
 - **Plenty have no wearable at all — just their phone.** For these people the phone itself is the tracker:
   it can count their steps as they walk around the complex. We can't leave this group out; they may be the
   majority.
-- Many have an Android phone paired with some wearable (a Fitbit, a Xiaomi band, whatever) that already
-  collects their steps and sleep.
+- Many have a phone paired with some wearable (a Fitbit, a Xiaomi band, whatever) that already collects their steps and
+  sleep.
 - A large group are Samsung users with Galaxy phones and Galaxy Watches.
 - Some wear brands that live mostly in their own cloud apps (Garmin, Oura, Polar).
 
@@ -72,15 +72,15 @@ not "a coach yelling at you to hit your macros."
 
 ### Colour palette
 
-| Role | Name | Hex |
-|------|------|-----|
-| Primary | Meridian Teal | `#0E6E6E` |
-| Accent / calls-to-action / nudges | Sunrise Amber | `#F4A63A` |
-| Background | Horizon Sand (warm off-white) | `#F7F5F0` |
-| Surface / cards | White | `#FFFFFF` |
-| Primary text | Slate | `#2B2F33` |
-| Secondary text | Muted Grey | `#8A9299` |
-| Positive / on-track | Soft Green | `#3FA34D` |
+| Role                              | Name                          | Hex       |
+|-----------------------------------|-------------------------------|-----------|
+| Primary                           | Meridian Teal                 | `#0E6E6E` |
+| Accent / calls-to-action / nudges | Sunrise Amber                 | `#F4A63A` |
+| Background                        | Horizon Sand (warm off-white) | `#F7F5F0` |
+| Surface / cards                   | White                         | `#FFFFFF` |
+| Primary text                      | Slate                         | `#2B2F33` |
+| Secondary text                    | Muted Grey                    | `#8A9299` |
+| Positive / on-track               | Soft Green                    | `#3FA34D` |
 
 Teal leads; amber is used sparingly for the one primary action on a screen and for gentle nudges. Lots of
 whitespace, soft rounded corners (cards ~16dp radius).
@@ -116,16 +116,16 @@ Five screens. Visual mockups (modern, platform-agnostic) are in
 
 ## What we need from you
 
-- Build **Meridian Move** as a native Android app.
+- Build **Meridian Move** as a native app.
 - Use **ROOK** as our health-data platform — we've chosen it so we don't have to build integrations with
   every wearable ourselves. You'll get test (sandbox) access to set things up; we'll hand over the real
   production access when we're ready to launch.
 - Support the ways our employees' data can reach us, so nobody is left out:
-  1. **phone-only employees** — count their steps using the phone itself, no wearable required,
-  2. data from a wearable that already lives on the employee's Android phone via the phone's health hub,
-  3. Samsung devices (our Samsung users are a big chunk, and we want their data to be as accurate as
-     possible),
-  4. cloud-only brands that connect through the employee authorizing their account.
+    1. **phone-only employees** — count their steps using the phone itself, no wearable required,
+    2. data from a wearable that already lives on the employee's phone via the phone's health hub,
+    3. Samsung devices (our Samsung users are a big chunk, and we want their data to be as accurate as
+       possible),
+    4. cloud-only brands that connect through the employee authorizing their account.
 - Set expectations honestly per segment: a phone-only employee will get step counts, while someone with a
   wearable can also get sleep and heart rate. That's fine — the point is that everyone gets *something*.
 - Make connecting feel trustworthy: explain the permissions, let people opt in, and let them back out.
