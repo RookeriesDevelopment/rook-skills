@@ -9,7 +9,7 @@ ROOK exceptions, their cause 📜, and how to handle them 🔧.
 |---|---|---|
 | `ApiHttpRequestException` | An HTTP request failed — usually an error in ROOK servers. | Verify the SDK credentials (`setup-and-init.md`). If correct, read the `httpCode` / `httpMessage` properties and send a report to ROOK support. |
 | `ApiNotAuthorizedException` | The operation requires an authorization level your `clientUUID` doesn't have. | Verify the SDK credentials (`setup-and-init.md`). If correct, report to ROOK support — some SDK features need a special authorization level not included in the basic level. |
-| `ApiNotInitializedException` | The SDK was not initialized or failed to initialize. | Call `RookApiSources.initRook()` and wait for a successful result. |
+| `ApiNotInitializedException` | The SDK was not initialized or failed to initialize. | Call `apiSources.initRook()` and wait for a successful result. |
 | `ApiSessionExpiredException` | The SDK session expired and could not be automatically recovered. | Re-initialize the SDK with a valid Client UUID and secret. Ensure the secret and package name are registered in the ROOK Portal. |
 | `ApiTimeoutException` | An HTTP request waited too long — often an unavailable or unstable internet connection. | Check connectivity and try again. |
 

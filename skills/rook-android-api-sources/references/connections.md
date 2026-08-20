@@ -24,7 +24,7 @@ To get the authorization URL for a specific data source, call `getDataSourceAuth
   `references/troubleshooting.md` → best practices).
 
 ```kotlin
-RookApiSources.getDataSourceAuthorizer(userID, dataSource, REDIRECT_URL).fold(
+apiSources.getDataSourceAuthorizer(userID, dataSource, REDIRECT_URL).fold(
     {
         // Success
     },
@@ -57,7 +57,7 @@ To get all data sources the current user has connected, call `getAuthorizedDataS
 - `userID`
 
 ```kotlin
-RookApiSources.getAuthorizedDataSourcesV2(userID).fold(
+apiSources.getAuthorizedDataSourcesV2(userID).fold(
     {
         // Success
     },
@@ -95,7 +95,7 @@ To disconnect a data source (revoke authorization), call `revokeDataSource` with
   `DataSourceType.FITBIT`, `DataSourceType.WITHINGS`, `DataSourceType.WHOOP`
 
 ```kotlin
-RookApiSources.revokeDataSource(userID, DataSourceType.WITHINGS).fold(
+apiSources.revokeDataSource(userID, DataSourceType.WITHINGS).fold(
     {
         // Success
     },

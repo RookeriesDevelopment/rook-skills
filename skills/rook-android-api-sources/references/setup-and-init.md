@@ -62,7 +62,7 @@ val configuration = ApiConfiguration(
     environment = apiEnvironment,
 )
 
-RookApiSources.initRook(configuration)
+apiSources.initRook(configuration)
 ```
 
 ### Critical requirement — register credentials first
