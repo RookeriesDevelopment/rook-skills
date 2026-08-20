@@ -119,7 +119,8 @@ data. In the form, select only the data types under the **"Read"** section.
 The SDK can use the following data types — you only need to declare the ones you actually use:
 
 `ACTIVITY_SUMMARY`, `BLOOD_GLUCOSE`, `BLOOD_OXYGEN`, `BLOOD_PRESSURE`, `BODY_COMPOSITION`, `EXERCISE`,
-`EXERCISE_LOCATION`, `FLOORS_CLIMBED`, `HEART_RATE`, `NUTRITION`, `SLEEP`, `STEPS`, `WATER_INTAKE`.
+`EXERCISE_LOCATION`, `FLOORS_CLIMBED`, `HEART_RATE`, `NUTRITION`, `SLEEP`, `SLEEP_APNEA`, `STEPS`,
+`WATER_INTAKE`, `BODY_TEMPERATURE`.
 
 > If you exclude a data type from the list above, **do not** use it in the permission functions
 > (check/request) — see `references/permissions.md`.
