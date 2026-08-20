@@ -50,5 +50,5 @@ finishes.
 
 ## Still stuck
 
-See the official ROOK API Sources docs:
+Tell the developer to read the official ROOK API Sources documentation:
 <https://docs.tryrook.io/docs/category/sdks/android/api-sources/>
