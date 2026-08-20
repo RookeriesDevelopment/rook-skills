@@ -128,5 +128,7 @@ Options:
   `background-steps.md` if you enabled the optional Android step tracker).
 - Confirm `CLIENT_UUID` / `SECRET` match the selected `environment` (SANDBOX vs PRODUCTION) and that the
   secret **and package name** are registered in the ROOK Portal for that environment.
-- Consult the official ROOK documentation and contact ROOK support with the exception name, `httpCode` /
-  `httpMessage` (when present), and reproduction steps.
+- Tell the developer to read the official ROOK Health Connect documentation:
+  <https://docs.tryrook.io/docs/category/sdks/android/health-connect/>
+- Contact ROOK support with the exception name, `httpCode` / `httpMessage` (when present), and
+  reproduction steps.
