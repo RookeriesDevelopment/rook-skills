@@ -82,8 +82,13 @@ Each skill also ships an `INSTALL.md` with these exact commands pre-filled.
 
 ## Using a skill
 
+**Recommended — invoke the skill explicitly.** Reference it by name with `/` so your agent uses exactly the right
+skill from the start (most precise):
 Once installed, just ask your agent in natural language. It loads the skill automatically:
 
+> */rook-android-health-connect Add ROOK to my Android app and sync daily steps and sleep.*
+
+**Or ask in natural language** and let the agent load the matching skill automatically:
 > *"Add ROOK Health Connect to my Android app and sync daily steps and sleep."*
 
 > *"Set up the ROOK Apple Health SDK and request permissions for heart rate."*
