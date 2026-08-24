@@ -56,7 +56,7 @@ The Flutter SDK exposes a single static entry-point class:
   `enableBackgroundSync`) passed to `initRook`.
 
 Most methods return a `Future`; handle both success and error paths (`.then(...).catchError(...)` or
-`try/await`).
+`async`/`await` in a `try/catch`).
 
 ## Integration flow
 
