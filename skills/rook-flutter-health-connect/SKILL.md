@@ -1,0 +1,67 @@
+---
+name: rook-flutter-health-connect
+author: ROOK
+description: >
+  Integrate the ROOK Flutter Health Connect SDK: set up credentials, register users, request
+  permissions, and sync health summaries and events (steps, calories, sleep, heart rate) manually or
+  in the background. Use when a developer is adding ROOK, Health Connect, or wearable/health-data sync
+  to a Flutter app on Android.
+---
+
+# ROOK Flutter — Health Connect SDK
+
+## What this skill does
+
+Guides a developer through integrating the ROOK Health Connect SDK (`rook_sdk_health_connect`) into a
+Flutter app: SDK setup and initialization, user registration, checking Health Connect availability,
+requesting permissions, and syncing health data (summaries and events) both manually and automatically
+in the background.
+
+## When to use it
+
+Use when the developer mentions ROOK, Health Connect, health-data sync, wearables, permissions, or
+background sync in a Flutter (Android) project.
+
+## Invariants — do not get these wrong
+
+- **Identifiers:** use `client_uuid` (the client identifier — **never** `customer_id`) and `user_id`
+  (the app end-user whose data is synced).
+- **Environment:** the SDK environment is `RookEnvironment.sandbox` or `RookEnvironment.production`;
+  each has its **own** credentials (package name + secret) registered in the ROOK Portal. Typically
+  sandbox for debug builds, production for release.
+- **Secrets:** never hardcode or print a real `client_uuid` or secret — use placeholders
+  `CLIENT_UUID` / `SECRET`.
+- **Credentials must be registered first:** the app's `applicationId` (package name) and its secret must
+  be registered in the ROOK Portal before `initRook()`, or initialization fails with
+  `SDKNotAuthorizedException`.
+- **Android only:** Health Connect is an Android platform; this SDK does nothing on iOS. Guard
+  Android-specific calls with `Platform.isAndroid`.
+- **Versions:** the `rook_sdk_health_connect` / `rook_sdk_core` versions and the `minSdk` / `targetSdk`
+  live in `references/setup-and-init.md` — keep them in sync with the official docs; never invent a
+  version.
+- **Initialize once:** call `initRook()` only once per app launch.
+
+## Key classes
+
+- `HCRookConfigurationManager` — configuration, initialization, `updateUserID`, login/logout.
+- `HCRookHealthPermissionsManager` — Health Connect availability and permission requests.
+- `HCRookSyncManager` — manual sync of summaries and events.
+- `HCRookBackgroundSync` — automatic/background sync.
+- `AndroidStepsCounter` — optional Android step-counter tracking (see the optional step below).
+
+## Integration flow
+
+Open the reference for the step you're on:
+
+1. **Setup & initialization** (install, configure, choose environment, `initRook`) → `references/setup-and-init.md`
+2. **Register / update the user** (`updateUserID`, login/logout) → `references/setup-and-init.md`
+3. **Availability & permissions** (check Health Connect, request permissions) → `references/permissions.md`
+4. **Sync health data — manual** → `references/sync.md`
+5. **Sync health data — automatic / background** → `references/background.md`
+6. **Troubleshooting** (known exceptions + best practices) → `references/troubleshooting.md`
+
+Optional:
+
+- **Background steps** (Android step-counter sensor; a low-accuracy fallback for devices without Health
+  Connect) → `references/background-steps.md`. **Not recommended by default** — only use it if the developer
+  specifically asks for an Android step tracker or a non-Health-Connect fallback.
