@@ -32,12 +32,16 @@ model, sync APIs, and the common failure modes — without you pasting docs into
 
 Naming scheme: **`rook-{platform}-{data-source}`**.
 
-| Platform    | Skill                         | Integrates                                                                                         |
-|-------------|-------------------------------|----------------------------------------------------------------------------------------------------|
-| **Android** | `rook-android-health-connect` | Health Connect — summaries & events (steps, calories, sleep, heart rate), manual + background sync |
-| **Android** | `rook-android-samsung-health` | Samsung Health — summaries & events, manual + background sync                                      |
-| **Android** | `rook-android-api-sources`    | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth           |
-| **iOS**     | `rook-ios-apple-health`       | Apple Health — summaries & events, manual + background sync                                        |
+| Platform    | Skill                         | Integrates                                                                                               |
+|-------------|-------------------------------|----------------------------------------------------------------------------------------------------------|
+| **Android** | `rook-android-health-connect` | Health Connect — summaries & events (steps, calories, sleep, heart rate), manual + background sync       |
+| **Android** | `rook-android-samsung-health` | Samsung Health — summaries & events, manual + background sync                                            |
+| **Android** | `rook-android-api-sources`    | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth                 |
+| **iOS**     | `rook-ios-apple-health`       | Apple Health — summaries & events, manual + background sync                                              |
+| **Flutter** | `rook-flutter-health-connect` | Health Connect (Android) — summaries & events, manual + background sync                                  |
+| **Flutter** | `rook-flutter-samsung-health` | Samsung Health (Android) — summaries & events, manual + background sync                                  |
+| **Flutter** | `rook-flutter-apple-health`   | Apple Health / HealthKit (iOS) — summaries & events, manual + background sync                            |
+| **Flutter** | `rook-flutter-api-sources`    | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth — iOS & Android |
 
 ---
 
@@ -84,12 +88,10 @@ Each skill also ships an `INSTALL.md` with these exact commands pre-filled.
 
 **Recommended — invoke the skill explicitly.** Reference it by name with `/` so your agent uses exactly the right
 skill from the start (most precise):
-Once installed, just ask your agent in natural language. It loads the skill automatically:
 
 > */rook-android-health-connect Add ROOK to my Android app and sync daily steps and sleep.*
 
 **Or ask in natural language** and let the agent load the matching skill automatically:
-> *"Add ROOK Health Connect to my Android app and sync daily steps and sleep."*
 
 > *"Set up the ROOK Apple Health SDK and request permissions for heart rate."*
 
@@ -107,7 +109,11 @@ rook-skills/
     │   └── INSTALL.md               # per-tool install commands
     ├── rook-android-samsung-health/
     ├── rook-android-api-sources/
-    └── rook-ios-apple-health/
+    ├── rook-ios-apple-health/
+    ├── rook-flutter-health-connect/
+    ├── rook-flutter-samsung-health/
+    ├── rook-flutter-apple-health/
+    └── rook-flutter-api-sources/
 ```
 
 ---
