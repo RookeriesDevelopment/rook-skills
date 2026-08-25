@@ -175,7 +175,7 @@ Rules:
 `true`, background sync starts as soon as the SDK is initialized — see `references/background.md`).
 
 ```dart
-void initialize() {
+void initialize() async {
   const environment =
       kDebugMode ? RookEnvironment.sandbox : RookEnvironment.production;
 
@@ -194,11 +194,13 @@ void initialize() {
 
   HCRookConfigurationManager.setConfiguration(rookConfiguration);
 
-  HCRookConfigurationManager.initRook().then((_) {
+  try {
+    await HCRookConfigurationManager.initRook();
+
     // Success — SDK is initialized
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error (e.g. SDKNotAuthorizedException if credentials aren't registered)
-  });
+  }
 }
 ```
 
@@ -208,12 +210,14 @@ After the SDK is initialized, register the app end-user whose data will be synce
 `user_id` (**never** `customer_id`). Call `updateUserID` as part of your **login / initialization** flow.
 
 ```dart
-void updateUserID() {
-  HCRookConfigurationManager.updateUserID(userID).then((_) {
+void updateUserID() async {
+  try {
+    await HCRookConfigurationManager.updateUserID(userID);
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -227,14 +231,14 @@ Once `updateUserID` has succeeded, the `userID` is persisted. If the app is clos
 storage:
 
 ```dart
-void checkUserIDRegistered() {
-  HCRookConfigurationManager.getUserID().then((userID) {
-    if (userID != null) {
-      // Recovered from storage — no need to call updateUserID again
-    } else {
-      // Not configured yet — you MUST call updateUserID
-    }
-  });
+void checkUserIDRegistered() async {
+  final userID = await HCRookConfigurationManager.getUserID();
+
+  if (userID != null) {
+    // Recovered from storage — no need to call updateUserID again
+  } else {
+    // Not configured yet — you MUST call updateUserID
+  }
 }
 ```
 
@@ -244,12 +248,14 @@ When the user logs out of your app, call `deleteUserFromRook` to remove the `use
 disable it on the server (server disable applies to the Samsung Health data source only).
 
 ```dart
-void logout() {
-  HCRookConfigurationManager.deleteUserFromRook().then((_) {
+void logout() async {
+  try {
+    await HCRookConfigurationManager.deleteUserFromRook();
+
     // User removed from the SDK
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -259,11 +265,13 @@ Every successful `updateUserID` also updates the user's timezone (look for `Time
 in the logs). This is enough in most cases. To update the timezone manually, call `syncUserTimeZone`:
 
 ```dart
-void updateTimeZoneInformation() {
-  HCRookConfigurationManager.syncUserTimeZone().then((_) {
+void updateTimeZoneInformation() async {
+  try {
+    await HCRookConfigurationManager.syncUserTimeZone();
+
     // User timezone updated successfully
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```

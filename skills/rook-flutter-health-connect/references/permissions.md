@@ -27,12 +27,14 @@ Call `checkHealthConnectAvailability` before anything else and act on the result
 | `notSupported` | Device does not support Health Connect | Take the user out of the Health Connect flow |
 
 ```dart
-void checkAvailability() {
-  HCRookHealthPermissionsManager.checkHealthConnectAvailability().then((availability) {
+void checkAvailability() async {
+  try {
+    final availability = await HCRookHealthPermissionsManager.checkHealthConnectAvailability();
+
     // React to HCAvailabilityStatus.installed / notInstalled / notSupported
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -58,24 +60,29 @@ this set under [Customizing permissions](#customizing-permissions).
 Check whether **all** required permissions are granted:
 
 ```dart
-void checkHealthConnectPermissions() {
-  HCRookHealthPermissionsManager.checkHealthConnectPermissions().then((permissionsGranted) {
+void checkHealthConnectPermissions() async {
+  try {
+    final permissionsGranted = await HCRookHealthPermissionsManager.checkHealthConnectPermissions();
+
     // Update your UI
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
 Check whether **at least one** permission is granted (`checkHealthConnectPermissionsPartially`):
 
 ```dart
-void checkHealthConnectPermissionsPartially() {
-  HCRookHealthPermissionsManager.checkHealthConnectPermissionsPartially().then((permissionsPartiallyGranted) {
+void checkHealthConnectPermissionsPartially() async {
+  try {
+    final permissionsPartiallyGranted =
+        await HCRookHealthPermissionsManager.checkHealthConnectPermissionsPartially();
+
     // Update your UI
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -98,15 +105,18 @@ streamSubscription =
 });
 
 // 3. Request permissions
-HCRookHealthPermissionsManager.requestHealthConnectPermissions().then((requestPermissionsStatus) {
+try {
+  final requestPermissionsStatus =
+      await HCRookHealthPermissionsManager.requestHealthConnectPermissions();
+
   if (requestPermissionsStatus == RequestPermissionsStatus.alreadyGranted) {
     // Permissions already granted, update your UI
   } else {
     // Wait for the result on the stream
   }
-}).catchError((error) {
+} catch (error) {
   // Handle error
-});
+}
 
 // 4. Stop listening when you no longer need updates (e.g. on dispose)
 streamSubscription?.cancel();
@@ -121,12 +131,14 @@ recovery is opening the Health Connect app so the user can grant permissions man
 Provide an "Open Health Connect" button backed by `openHealthConnectSettings`:
 
 ```dart
-void openHealthConnect() {
-  HCRookHealthPermissionsManager.openHealthConnectSettings().then((_) {
+void openHealthConnect() async {
+  try {
+    await HCRookHealthPermissionsManager.openHealthConnectSettings();
+
     // Health Connect was opened
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -188,12 +200,14 @@ Notes:
 Reset all granted Health Connect permissions with `revokeHealthConnectPermissions`:
 
 ```dart
-void revokeHealthConnectPermissions() {
-  HCRookHealthPermissionsManager.revokeHealthConnectPermissions().then((_) {
+void revokeHealthConnectPermissions() async {
+  try {
+    await HCRookHealthPermissionsManager.revokeHealthConnectPermissions();
+
     // Health Connect permissions revoked, restart the app to apply the changes
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -208,12 +222,14 @@ Standard (non-health) Android permissions used to track steps:
 Check them:
 
 ```dart
-void checkAndroidPermissions() {
-  HCRookHealthPermissionsManager.checkAndroidPermissions().then((permissionsGranted) {
+void checkAndroidPermissions() async {
+  try {
+    final permissionsGranted = await HCRookHealthPermissionsManager.checkAndroidPermissions();
+
     // Update your UI
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -285,22 +301,26 @@ The SDK uses `SCHEDULE_EXACT_ALARM` (already in its manifest) to keep background
 battery constraints.
 
 ```dart
-HCRookHealthPermissionsManager.checkExactAlarmPermissions().then((hasAlarmPermissions) {
-  // Success
-}).catchError((error) {
-  // Handle error
-});
+try {
+  final hasAlarmPermissions = await HCRookHealthPermissionsManager.checkExactAlarmPermissions();
 
-HCRookHealthPermissionsManager.requestExactAlarmPermissions().then((requestPermissionsStatus) {
+  // Success
+} catch (error) {
+  // Handle error
+}
+
+try {
+  final requestPermissionsStatus = await HCRookHealthPermissionsManager.requestExactAlarmPermissions();
+
   switch (requestPermissionsStatus) {
     case RequestPermissionsStatus.alreadyGranted:
       // Permissions already granted
     case RequestPermissionsStatus.requestSent:
       // Special app-access permission: no callback — re-check with checkExactAlarmPermissions
   }
-}).catchError((error) {
+} catch (error) {
   // Handle error
-});
+}
 ```
 
 > On API 26–30 exact alarms are unrestricted, so these calls always return `true` /
@@ -309,22 +329,28 @@ HCRookHealthPermissionsManager.requestExactAlarmPermissions().then((requestPermi
 ### Battery optimizations
 
 ```dart
-HCRookHealthPermissionsManager.checkBatteryOptimizationsDisabled().then((batteryOptimizationsDisabled) {
-  // Success
-}).catchError((error) {
-  // Handle error
-});
+try {
+  final batteryOptimizationsDisabled =
+      await HCRookHealthPermissionsManager.checkBatteryOptimizationsDisabled();
 
-HCRookHealthPermissionsManager.requestDisableBatteryOptimizations().then((requestPermissionsStatus) {
+  // Success
+} catch (error) {
+  // Handle error
+}
+
+try {
+  final requestPermissionsStatus =
+      await HCRookHealthPermissionsManager.requestDisableBatteryOptimizations();
+
   switch (requestPermissionsStatus) {
     case RequestPermissionsStatus.alreadyGranted:
       // Battery optimizations are already disabled
     case RequestPermissionsStatus.requestSent:
       // Special app-access permission: no callback — re-check with checkBatteryOptimizationsDisabled
   }
-}).catchError((error) {
+} catch (error) {
   // Handle error
-});
+}
 ```
 
 ### Auto start (OEM-specific)
@@ -333,22 +359,26 @@ Brands like OPPO, OnePlus, and Xiaomi enforce a custom Auto Start restriction. D
 OEM has such a settings screen with `requiresOemAutoStartSetup`, then open it with `openOemAutoStartSetup`:
 
 ```dart
-HCRookHealthPermissionsManager.requiresOemAutoStartSetup().then((hasAutoStartRestriction) {
-  // Success
-}).catchError((error) {
-  // Handle error
-});
+try {
+  final hasAutoStartRestriction = await HCRookHealthPermissionsManager.requiresOemAutoStartSetup();
 
-HCRookHealthPermissionsManager.openOemAutoStartSetup().then((requestPermissionsStatus) {
+  // Success
+} catch (error) {
+  // Handle error
+}
+
+try {
+  final requestPermissionsStatus = await HCRookHealthPermissionsManager.openOemAutoStartSetup();
+
   switch (requestPermissionsStatus) {
     case RequestPermissionsStatus.alreadyGranted:
       // The device has no OEM screen
     case RequestPermissionsStatus.requestSent:
       // OEM-specific screen: the user's choice can't be read back
   }
-}).catchError((error) {
+} catch (error) {
   // Handle error
-});
+}
 ```
 
 > A `true` from `requiresOemAutoStartSetup` means the OEM management system **exists**, not that auto start
