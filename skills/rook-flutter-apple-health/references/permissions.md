@@ -17,12 +17,14 @@ Call `requestPermissions` to launch the Apple Health permission dialog. With no 
 **all** the data types the SDK supports:
 
 ```dart
-void requestPermissions() {
-  AHRookHealthPermissionsManager.requestPermissions().then((_) {
+void requestPermissions() async {
+  try {
+    await AHRookHealthPermissionsManager.requestPermissions();
+
     // Success — the permission dialog was presented
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -33,18 +35,20 @@ app actually needs. There is one enum value per data type (e.g. `activeEnergyBur
 `basalEnergyBurned`, `stepCount`, …):
 
 ```dart
-void requestCaloriesAndStepsPermissions() {
+void requestCaloriesAndStepsPermissions() async {
   final caloriesAndStepsPermissions = [
     AppleHealthPermission.activeEnergyBurned,
     AppleHealthPermission.basalEnergyBurned,
     AppleHealthPermission.stepCount,
   ];
 
-  AHRookHealthPermissionsManager.requestPermissions(caloriesAndStepsPermissions).then((_) {
+  try {
+    await AHRookHealthPermissionsManager.requestPermissions(caloriesAndStepsPermissions);
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 

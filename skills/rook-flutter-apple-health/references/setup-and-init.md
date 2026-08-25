@@ -105,7 +105,7 @@ Rules:
 `true`, background sync starts when `initRook` completes — see `references/background.md`).
 
 ```dart
-void initialize() {
+void initialize() async {
   const environment = kDebugMode ? RookEnvironment.sandbox : RookEnvironment.production;
 
   final rookConfiguration = RookConfiguration(
@@ -123,11 +123,13 @@ void initialize() {
 
   AHRookConfigurationManager.setConfiguration(rookConfiguration);
 
-  AHRookConfigurationManager.initRook().then((_) {
+  try {
+    await AHRookConfigurationManager.initRook();
+
     // Success — SDK is initialized
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error (e.g. SDKNotAuthorizedException if credentials aren't registered)
-  });
+  }
 }
 ```
 
@@ -141,12 +143,14 @@ After the SDK is initialized, register the app end-user whose data will be synce
 flow.
 
 ```dart
-void updateUserID() {
-  AHRookConfigurationManager.updateUserID(userID).then((_) {
+void updateUserID() async {
+  try {
+    await AHRookConfigurationManager.updateUserID(userID);
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -160,14 +164,14 @@ Once `updateUserID` has succeeded, the `userID` is persisted. If the app is clos
 from preferences:
 
 ```dart
-void checkUserIDRegistered() {
-  AHRookConfigurationManager.getUserID().then((userID) {
-    if (userID != null) {
-      // Recovered from preferences — no need to call updateUserID again
-    } else {
-      // Not configured yet — you MUST call updateUserID
-    }
-  });
+void checkUserIDRegistered() async {
+  final userID = await AHRookConfigurationManager.getUserID();
+
+  if (userID != null) {
+    // Recovered from preferences — no need to call updateUserID again
+  } else {
+    // Not configured yet — you MUST call updateUserID
+  }
 }
 ```
 
@@ -177,12 +181,14 @@ When the user logs out of your app, call `deleteUserFromRook` to remove the `use
 disable it on the server (this only disables the Apple Health data source).
 
 ```dart
-void logout() {
-  AHRookConfigurationManager.deleteUserFromRook().then((_) {
+void logout() async {
+  try {
+    await AHRookConfigurationManager.deleteUserFromRook();
+
     // User removed from the SDK and disabled on the server
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -192,11 +198,13 @@ Every successful `updateUserID` also updates the user's timezone. This is enough
 update the timezone manually, call `syncUserTimeZone`:
 
 ```dart
-void updateTimeZoneInformation() {
-  AHRookConfigurationManager.syncUserTimeZone().then((_) {
+void updateTimeZoneInformation() async {
+  try {
+    await AHRookConfigurationManager.syncUserTimeZone();
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
