@@ -101,8 +101,10 @@ Rules:
 - `enableNativeLogs()` must run **before** `setConfiguration`.
 - `initRook` makes an HTTP request — **initialize only once per app launch**.
 
-`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, and `enableBackgroundSync` (if
-`true`, background sync starts when `initRook` completes — see `references/background.md`).
+`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, `enableBackgroundSync` (if
+`true`, background sync starts when `initRook` completes — see `references/background.md`), and the
+optional `appId`. Leave `appId` unset to use the app's own bundle identifier; set it only to override
+that (otherwise the SDK reads it from `Bundle.main.bundleIdentifier`).
 
 ```dart
 void initialize() async {

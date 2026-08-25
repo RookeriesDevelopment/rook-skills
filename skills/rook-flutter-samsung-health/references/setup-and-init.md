@@ -182,7 +182,9 @@ Rules:
   `false` and enable it explicitly later (see `references/background.md`); the recommended pattern is to
   ask the user's preference, store it locally, and set this flag conditionally.
 
-`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, `enableBackgroundSync`.
+`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, `enableBackgroundSync`, and the
+optional `appId`. Leave `appId` unset to use the app's own package name; set it only to override that
+(otherwise the SDK reads it from `Context.packageName`).
 
 Minimal initialization:
 

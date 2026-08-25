@@ -171,8 +171,10 @@ Rules:
 - Call `enableNativeLogs()` **before** `setConfiguration()` if you want native logs.
 - `initRook()` makes an HTTP request — call it **once per app launch**.
 
-`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, and `enableBackgroundSync` (when
-`true`, background sync starts as soon as the SDK is initialized — see `references/background.md`).
+`RookConfiguration` parameters: `clientUUID`, `secret`, `environment`, `enableBackgroundSync` (when
+`true`, background sync starts as soon as the SDK is initialized — see `references/background.md`), and
+the optional `appId`. Leave `appId` unset to use the app's own package name; set it only to override that
+(otherwise the SDK reads it from `Context.packageName`).
 
 ```dart
 void initialize() async {
