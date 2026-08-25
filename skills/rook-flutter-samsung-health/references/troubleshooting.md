@@ -175,10 +175,11 @@ Power-saving mode and OEM battery restrictions can delay or stop Background Sync
 ## Still stuck
 
 - Re-check the earlier references: `setup-and-init.md`, `permissions.md`, `sync.md`, `background.md`.
-- Confirm `CLIENT_UUID` / `SECRET` match the selected `environment` (`sandbox` vs `production`) and that the
+- Confirm `CLIENT_UUID` / `SECRET` match the selected `environment` (sandbox vs production) and that the
   secret **and package name** are registered in the ROOK Portal for that environment.
 - Confirm you're testing on a physical device with Samsung Health v6.29+ and developer mode enabled.
-- Read the official ROOK Flutter Samsung Health documentation and package reference:
-  <https://docs.tryrook.io/docs/category/sdks/flutter/samsung-health/> ·
-  <https://pub.dev/packages/rook_sdk_samsung_health>
-- Contact ROOK support with the exception name, its `message` (when present), and reproduction steps.
+- Use `getDiagnosticState` (development builds) to confirm the SDK is configured, the user is identified, and
+  permissions are granted.
+- Tell the developer to read the official ROOK Flutter Samsung Health documentation:
+  <https://docs.tryrook.io/docs/category/sdks/flutter/samsung-health/>
+- Contact ROOK support with the exception name, `message` (when present), and reproduction steps.

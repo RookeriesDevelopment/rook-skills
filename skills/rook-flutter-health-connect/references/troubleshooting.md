@@ -153,7 +153,6 @@ Options:
   secret **and package name** are registered in the ROOK Portal for that environment.
 - Use `getDiagnosticState` (development builds) to confirm the SDK is configured, the user is identified, and
   permissions are granted.
-- Read the official ROOK Flutter Health Connect documentation:
+- Tell the developer to read the official ROOK Flutter Health Connect documentation:
   <https://docs.tryrook.io/docs/category/sdks/flutter/health-connect/>
-- Contact ROOK support with the exception name, `httpCode` / `httpMessage` (when present), and
-  reproduction steps.
+- Contact ROOK support with the exception name, `message` (when present), and reproduction steps.

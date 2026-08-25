@@ -153,6 +153,8 @@ Power-saving mode and OEM battery restrictions can delay or stop Background Sync
 - Confirm `CLIENT_UUID` / `SECRET` match the selected `environment` (SANDBOX vs PRODUCTION) and that the
   secret **and package name** are registered in the ROOK Portal for that environment.
 - Confirm you're testing on a physical device with Samsung Health v6.29+ and developer mode enabled.
+- Use `getDiagnosticState` (development builds) to confirm the SDK is configured, the user is identified, and
+  permissions are granted.
 - Tell the developer to read the official ROOK Samsung Health documentation:
   <https://docs.tryrook.io/docs/category/sdks/android/samsung-health/>
 - Contact ROOK support with the exception name, `httpCode` / `httpMessage` (when present), and
