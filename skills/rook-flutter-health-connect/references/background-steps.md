@@ -72,7 +72,7 @@ void startStepsTracker() async {
     await AndroidStepsCounter.enableStepsCounter();
 
     // Success
-  } catch (exception) {
+  } catch (error) {
     // Handle error
   }
 }
@@ -82,7 +82,7 @@ void stopStepsTracker() async {
     await AndroidStepsCounter.disableStepsCounter();
 
     // Success
-  } catch (exception) {
+  } catch (error) {
     // Handle error
   }
 }
@@ -93,12 +93,14 @@ void stopStepsTracker() async {
 `getTodayStepsCount` retrieves and uploads the current day's step count:
 
 ```dart
-void getTodaySteps() {
-  AndroidStepsCounter.getTodayStepsCount().then((todaySteps) {
+void getTodaySteps() async {
+  try {
+    final todaySteps = await AndroidStepsCounter.getTodayStepsCount();
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
