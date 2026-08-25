@@ -34,8 +34,10 @@ There are two kinds of health data, both handled by `HCRookSyncManager`:
 | Summary     | UTC      | 29 days ago        | Today (V4)         |
 | Event       | UTC      | 29 days ago        | Today              |
 
-Summary types: `SLEEP_SUMMARY`, `PHYSICAL_SUMMARY`, `BODY_SUMMARY`. Dates are selected with a `DateTime`; a
-specific type is selected with `HCSummarySyncType` (summaries) or `HCEventSyncType` (events).
+- **Summary types** — `HCSummarySyncType`: `sleep`, `physical`, `body`.
+- **Event types** — `HCEventSyncType`: `activity`, `bloodGlucose`, `bloodPressure`, `bodyMetrics`,
+  `heartRate`, `hydration`, `nutrition`, `oxygenation`, `temperature`, `steps`, `calories`.
+- A date is selected with a `DateTime`.
 
 ## Sync summaries
 
