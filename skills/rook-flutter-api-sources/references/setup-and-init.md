@@ -3,8 +3,7 @@
 ## Requirements
 
 - **Flutter** — a Flutter project targeting Android and/or iOS.
-- **ROOK SDK version** — `rook_sdk_core`, latest stable: **4.1.1**. Keep this in sync with
-  `docs/ROOKConnect/SDKs/Flutter/rook_sdk_core/` — never invent a version.
+- **ROOK SDK version** — `rook_sdk_core`, latest stable: **4.1.1**.
 
 ## Install the dependency
 
