@@ -60,7 +60,7 @@ rookSyncManager.sync(enableLogs = isDebug).fold(
 ```
 
 > If the app goes to the background this synchronization will fail. To keep syncing until it finishes
-> (summaries **and** events), use `launchInForegroundService` — see `references/background.md`.
+> (summaries **and** events), use background sync — see `references/background.md`.
 
 Sync all three summaries for **a specific date** with `sync(date)`. It returns an `HCSyncSummariesResult`
 holding one result per summary type; you can treat it as a single result (as below) or inspect each:
