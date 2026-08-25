@@ -20,8 +20,10 @@ There are two kinds of health data, **Summaries** and **Events**:
 | Summary     | UTC      | 29 days ago        | Today (V4)         |
 | Event       | UTC      | 29 days ago        | Today              |
 
-Summary types: `SLEEP_SUMMARY`, `PHYSICAL_SUMMARY`, `BODY_SUMMARY`. A specific summary is selected with an
-`SHSummarySyncType`; a specific event with an `SHEventSyncType`.
+- **Summary types** — `SHSummarySyncType`: `sleep`, `physical`, `body`.
+- **Event types** — `SHEventSyncType`: `activity`, `bloodGlucose`, `bloodPressure`, `bodyMetrics`,
+  `heartRate`, `hydration`, `nutrition`, `oxygenation`, `temperature`, `steps`, `calories`.
+- A date is selected with a `DateTime`.
 
 ## Sync summaries
 
