@@ -52,6 +52,38 @@ void requestCaloriesAndStepsPermissions() async {
 }
 ```
 
+### Recommended baseline
+
+No single data type is required for every integration — request the minimum your product needs. A good
+starting set for ROOK's common summaries and events:
+
+```dart
+final baselinePermissions = [
+  AppleHealthPermission.stepCount,
+  AppleHealthPermission.height,
+  AppleHealthPermission.bodyMass,
+  AppleHealthPermission.heartRate,
+  AppleHealthPermission.heartRateVariabilitySDNN,
+  AppleHealthPermission.workout,
+  AppleHealthPermission.sleepAnalysis,
+  AppleHealthPermission.oxygenSaturation,
+];
+```
+
+| Permission(s) | Enables |
+|---|---|
+| `stepCount` | Step totals and physical-activity data |
+| `height`, `bodyMass` | Body measurements and body summaries |
+| `heartRate`, `heartRateVariabilitySDNN` | Heart-rate events and cardiovascular metrics in summaries |
+| `workout` | Workout and activity events |
+| `sleepAnalysis` | Sleep sessions and sleep summaries |
+| `oxygenSaturation` | Oxygenation events and oxygen metrics in summaries |
+
+Add other `AppleHealthPermission` values only when a feature needs them — e.g. energy and distance
+(`activeEnergyBurned`, `basalEnergyBurned`, `distanceWalkingRunning`), temperature, `respiratoryRate`,
+blood pressure (`bloodPressureSystolic` / `bloodPressureDiastolic`), `bloodGlucose`, `electrocardiogram`,
+body composition, or dietary types.
+
 ## Notes
 
 - **HealthKit hides read-permission status by design.** For privacy, iOS does **not** tell an app
