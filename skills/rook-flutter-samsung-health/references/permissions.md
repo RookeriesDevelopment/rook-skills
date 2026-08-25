@@ -28,8 +28,10 @@ Before requesting permissions, confirm the Samsung Health app is installed and r
 | `notReady`     | The user hasn't completed onboarding (e.g. Samsung Health Terms).  | Prompt the user to open and finish Samsung Health onboarding. |
 
 ```dart
-void checkAvailability() {
-  RookSamsung.checkSamsungHealthAvailability().then((availability) {
+void checkAvailability() async {
+  try {
+    final availability = await RookSamsung.checkSamsungHealthAvailability();
+
     switch (availability) {
       case SamsungHealthAvailability.installed:
         // Proceed to check/request permissions
@@ -47,9 +49,9 @@ void checkAvailability() {
         // Prompt the user to finish Samsung Health onboarding
         break;
     }
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -90,24 +92,29 @@ Reuse the **same** `samsungPermissions` list for the check and request calls bel
 Check whether **all** the requested permissions are granted with `checkSamsungHealthPermissions`:
 
 ```dart
-void checkPermissions() {
-  RookSamsung.checkSamsungHealthPermissions(samsungPermissions).then((permissionsGranted) {
+void checkPermissions() async {
+  try {
+    final permissionsGranted = await RookSamsung.checkSamsungHealthPermissions(samsungPermissions);
+
     // permissionsGranted is a bool — update your UI
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
 Check whether **at least one** permission is granted with `checkSamsungHealthPermissionsPartially`:
 
 ```dart
-void checkPermissionsPartially() {
-  RookSamsung.checkSamsungHealthPermissionsPartially(samsungPermissions).then((permissionsPartiallyGranted) {
+void checkPermissionsPartially() async {
+  try {
+    final permissionsPartiallyGranted =
+        await RookSamsung.checkSamsungHealthPermissionsPartially(samsungPermissions);
+
     // permissionsPartiallyGranted is a bool — update your UI
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -125,7 +132,7 @@ subscription when you no longer need it:
 ```dart
 StreamSubscription<SamsungHealthPermissionsSummary>? streamSubscription;
 
-void requestPermissions() {
+void requestPermissions() async {
   // 1. Listen to the stream before requesting
   streamSubscription =
       RookSamsung.requestSamsungHealthPermissionsUpdates.listen((permissionsSummary) {
@@ -133,15 +140,18 @@ void requestPermissions() {
   });
 
   // 2. Request permissions
-  RookSamsung.requestSamsungHealthPermissions(samsungPermissions).then((requestPermissionsStatus) {
+  try {
+    final requestPermissionsStatus =
+        await RookSamsung.requestSamsungHealthPermissions(samsungPermissions);
+
     if (requestPermissionsStatus == RequestPermissionsStatus.alreadyGranted) {
       // Permissions already granted, update your UI
     } else {
       // requestSent — wait for the result on the stream
     }
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 
 // 3. Stop listening when done (e.g. in dispose)
@@ -183,16 +193,20 @@ Background Sync uses `SCHEDULE_EXACT_ALARM` (already in the SDK's manifest) to k
 alive under battery constraints.
 
 ```dart
-void checkExactAlarm() {
-  RookSamsung.checkExactAlarmPermissions().then((hasAlarmPermissions) {
+void checkExactAlarm() async {
+  try {
+    final hasAlarmPermissions = await RookSamsung.checkExactAlarmPermissions();
+
     // hasAlarmPermissions is a bool
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 
-void requestExactAlarm() {
-  RookSamsung.requestExactAlarmPermissions().then((requestPermissionsStatus) {
+void requestExactAlarm() async {
+  try {
+    final requestPermissionsStatus = await RookSamsung.requestExactAlarmPermissions();
+
     switch (requestPermissionsStatus) {
       case RequestPermissionsStatus.alreadyGranted:
         // Permissions already granted
@@ -201,9 +215,9 @@ void requestExactAlarm() {
         // No callback — re-check with checkExactAlarmPermissions
         break;
     }
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -213,16 +227,20 @@ void requestExactAlarm() {
 ### Battery optimizations
 
 ```dart
-void checkBatteryOptimizations() {
-  RookSamsung.checkBatteryOptimizationsDisabled().then((batteryOptimizationsDisabled) {
+void checkBatteryOptimizations() async {
+  try {
+    final batteryOptimizationsDisabled = await RookSamsung.checkBatteryOptimizationsDisabled();
+
     // batteryOptimizationsDisabled is a bool
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 
-void requestDisableBatteryOptimizations() {
-  RookSamsung.requestDisableBatteryOptimizations().then((requestPermissionsStatus) {
+void requestDisableBatteryOptimizations() async {
+  try {
+    final requestPermissionsStatus = await RookSamsung.requestDisableBatteryOptimizations();
+
     switch (requestPermissionsStatus) {
       case RequestPermissionsStatus.alreadyGranted:
         // Battery optimizations are already disabled
@@ -231,9 +249,9 @@ void requestDisableBatteryOptimizations() {
         // No callback — re-check with checkBatteryOptimizationsDisabled
         break;
     }
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -244,16 +262,20 @@ execution. Detect whether the device's OEM has such a settings screen with `requ
 then open it with `openOemAutoStartSetup`:
 
 ```dart
-void checkAutoStart() {
-  RookSamsung.requiresOemAutoStartSetup().then((hasAutoStartRestriction) {
+void checkAutoStart() async {
+  try {
+    final hasAutoStartRestriction = await RookSamsung.requiresOemAutoStartSetup();
+
     // hasAutoStartRestriction is a bool
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 
-void openAutoStart() {
-  RookSamsung.openOemAutoStartSetup().then((requestPermissionsStatus) {
+void openAutoStart() async {
+  try {
+    final requestPermissionsStatus = await RookSamsung.openOemAutoStartSetup();
+
     switch (requestPermissionsStatus) {
       case RequestPermissionsStatus.alreadyGranted:
         // The device has no OEM screen
@@ -262,9 +284,9 @@ void openAutoStart() {
         // Brand-specific screen — the user's choice can't be read back
         break;
     }
-  }).catchError((error) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 

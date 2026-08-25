@@ -187,7 +187,7 @@ Rules:
 Minimal initialization:
 
 ```dart
-void initialize() {
+void initialize() async {
   final configuration = RookConfiguration(
     clientUUID: CLIENT_UUID,
     secret: SECRET,
@@ -201,11 +201,13 @@ void initialize() {
     RookSamsung.enableNativeLogs();
   }
 
-  RookSamsung.initRook(configuration).then((_) {
+  try {
+    await RookSamsung.initRook(configuration);
+
     // Success — SDK is initialized
-  }).catchError((error) {
+  } catch (error) {
     // Handle error (e.g. SDKNotAuthorizedException if credentials aren't registered)
-  });
+  }
 }
 ```
 
@@ -215,12 +217,14 @@ After the SDK is initialized, register the app end-user whose data will be synce
 `user_id` (**never** `customer_id`). Call `updateUserID` as part of your **login / initialization** flow.
 
 ```dart
-void updateUserID() {
-  RookSamsung.updateUserID(userID).then((_) {
+void updateUserID() async {
+  try {
+    await RookSamsung.updateUserID(userID);
+
     // Success
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -237,14 +241,14 @@ Once `updateUserID` has succeeded, the `userID` is persisted. If the app is clos
 storage:
 
 ```dart
-void checkUserIDRegistered() {
-  RookSamsung.getUserID().then((userID) {
-    if (userID != null) {
-      // Recovered from storage — no need to call updateUserID again
-    } else {
-      // Not configured yet — you MUST call updateUserID
-    }
-  });
+void checkUserIDRegistered() async {
+  final userID = await RookSamsung.getUserID();
+
+  if (userID != null) {
+    // Recovered from storage — no need to call updateUserID again
+  } else {
+    // Not configured yet — you MUST call updateUserID
+  }
 }
 ```
 
@@ -254,12 +258,14 @@ When the user logs out of your app, call `deleteUserFromRook` to remove the `use
 disable it on the server (this only disables the Samsung Health data source).
 
 ```dart
-void deleteUser() {
-  RookSamsung.deleteUserFromRook().then((_) {
+void deleteUser() async {
+  try {
+    await RookSamsung.deleteUserFromRook();
+
     // User removed from the SDK and disabled on the server
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
 
@@ -269,11 +275,13 @@ Every successful `updateUserID` also updates the user's timezone (look for `Time
 in the logs). This is enough in most cases. To update the timezone manually, call `syncUserTimeZone`:
 
 ```dart
-void updateTimeZoneInformation() {
-  RookSamsung.syncUserTimeZone().then((_) {
+void updateTimeZoneInformation() async {
+  try {
+    await RookSamsung.syncUserTimeZone();
+
     // User timezone updated successfully
-  }).catchError((exception) {
+  } catch (error) {
     // Handle error
-  });
+  }
 }
 ```
