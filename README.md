@@ -32,16 +32,20 @@ model, sync APIs, and the common failure modes — without you pasting docs into
 
 Naming scheme: **`rook-{platform}-{data-source}`**.
 
-| Platform    | Skill                         | Integrates                                                                                               |
-|-------------|-------------------------------|----------------------------------------------------------------------------------------------------------|
-| **Android** | `rook-android-health-connect` | Health Connect — summaries & events (steps, calories, sleep, heart rate), manual + background sync       |
-| **Android** | `rook-android-samsung-health` | Samsung Health — summaries & events, manual + background sync                                            |
-| **Android** | `rook-android-api-sources`    | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth                 |
-| **iOS**     | `rook-ios-apple-health`       | Apple Health — summaries & events, manual + background sync                                              |
-| **Flutter** | `rook-flutter-health-connect` | Health Connect (Android) — summaries & events, manual + background sync                                  |
-| **Flutter** | `rook-flutter-samsung-health` | Samsung Health (Android) — summaries & events, manual + background sync                                  |
-| **Flutter** | `rook-flutter-apple-health`   | Apple Health / HealthKit (iOS) — summaries & events, manual + background sync                            |
-| **Flutter** | `rook-flutter-api-sources`    | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth — iOS & Android |
+| Platform         | Skill                                             | Integrates                                                                                                |
+|------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Android**      | `rook-android-health-connect`                     | Health Connect — summaries & events (steps, calories, sleep, heart rate), manual + background sync        |
+| **Android**      | `rook-android-samsung-health`                     | Samsung Health — summaries & events, manual + background sync                                             |
+| **Android**      | `rook-android-api-sources`                        | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth                  |
+| **iOS**          | `rook-ios-apple-health`                           | Apple Health — summaries & events, manual + background sync                                               |
+| **Flutter**      | `rook-flutter-health-connect`                     | Health Connect (Android) — summaries & events, manual + background sync                                   |
+| **Flutter**      | `rook-flutter-samsung-health`                     | Samsung Health (Android) — summaries & events, manual + background sync                                   |
+| **Flutter**      | `rook-flutter-apple-health`                       | Apple Health / HealthKit (iOS) — summaries & events, manual + background sync                             |
+| **Flutter**      | `rook-flutter-api-sources`                        | API/third-party sources (Garmin, Oura, Polar, Fitbit, Withings, Whoop, Dexcom) via OAuth — iOS & Android  |
+| **React Native** | `rook-react-native-apple-health`                  | Apple Health / HealthKit (iOS) — summaries, events & current-day data, manual + background sync           |
+| **React Native** | `rook-react-native-health-connect-samsung-health` | Health Connect + Samsung Health (Android) — summaries & events, manual + background sync                  |
+| **Capacitor**    | `rook-capacitor-apple-health`                     | Apple Health / HealthKit (iOS, Capacitor/Ionic) — summaries & events, manual + background sync            |
+| **Capacitor**    | `rook-capacitor-health-connect-samsung-health`    | Health Connect + Samsung Health (Android, Capacitor/Ionic) — summaries & events, manual + background sync |
 
 ---
 
@@ -113,7 +117,11 @@ rook-skills/
     ├── rook-flutter-health-connect/
     ├── rook-flutter-samsung-health/
     ├── rook-flutter-apple-health/
-    └── rook-flutter-api-sources/
+    ├── rook-flutter-api-sources/
+    ├── rook-react-native-apple-health/
+    ├── rook-react-native-health-connect-samsung-health/
+    ├── rook-capacitor-apple-health/
+    └── rook-capacitor-health-connect-samsung-health/
 ```
 
 ---
