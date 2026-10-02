@@ -19,15 +19,18 @@ There are two kinds of health data, **Summaries** and **Events**:
 
 | Health data | Timezone | Oldest retrievable | Latest retrievable |
 |-------------|----------|--------------------|--------------------|
-| Summary     | UTC      | 29 days ago        | Today (V4)         |
-| Event       | UTC      | 29 days ago        | Today              |
+| Summary     | UTC      | 180 days ago       | Today (V4)         |
+| Event       | UTC      | 180 days ago       | Today              |
+
+> Dates up to 180 days old can be synced with `sync(date)`, `sync(date, summary)` and `syncEvents(date, event)`
+> — no extra permission or configuration is needed.
 
 Summary types: `SLEEP_SUMMARY`, `PHYSICAL_SUMMARY`, `BODY_SUMMARY`. A date is selected with `LocalDate`; a
 specific type is selected with `SHSyncType.Summary` / `SHSyncType.Event`.
 
 ## Sync summaries
 
-Sync the **last 29 days** of all three summaries with `sync(enableLogs)`:
+Sync the **last 29 days** of all three summaries with `sync(enableLogs)` (always 29 days):
 
 ```kotlin
 rookSamsung.sync(enableLogs = isDebug).fold(
@@ -73,6 +76,13 @@ rookSamsung.syncEvents(date = localDate, event = event).fold(
     { /* Handle error */ },
 )
 ```
+
+> **Cumulative Hydration and Nutrition:** these events are synced as a **single event with cumulative values**
+> (since 4.2.0), not one event per hour.
+
+> **Merged workouts:** Samsung Health reports custom workouts as separate "sub-workouts" about a second
+> apart. Since 4.2.0 the SDK merges workouts into a single Activity Event when the gap between them is 3
+> seconds or less, so you may see fewer activity events than raw Samsung Health sessions.
 
 ## Sync current-day events
 

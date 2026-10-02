@@ -19,11 +19,11 @@ Samsung's Health Data SDK. Because of that, it has hard device requirements:
 
 - **Android Studio** Narwhal 4 Feature Drop | 2025.1.4 or higher is recommended.
 - **`minSdk` 29**, **`targetSdk` 36** (set in the app module `build.gradle`).
-- **ROOK SDK version** — this skill targets the **V4** line; use **4.1.0**. Keep in sync with the official
+- **ROOK SDK version** — this skill targets the **V4** line; use **4.2.0**. Keep in sync with the official
   docs; never invent a version.
 - **Samsung Health Data SDK `.aar`** — `samsung-health-data-api-1.1.0.aar` (downloaded and added to `libs/`;
   see below). This is Samsung's own artifact and has its **own** version (1.1.0), independent of the ROOK
-  SDK (4.1.0).
+  SDK (4.2.0).
 
 ## Install the dependency
 
@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation("io.tryrook.android:rook-sdk-samsung:4.1.0")
+    implementation("io.tryrook.android:rook-sdk-samsung:4.2.0")
     implementation(files("$rootDir/libs/samsung-health-data-api-1.1.0.aar"))
 
     // Required by the Samsung Health Data SDK .aar:

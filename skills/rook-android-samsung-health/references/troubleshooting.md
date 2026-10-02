@@ -13,8 +13,8 @@ failure branch of `fold`. Cause 📜 and fix 🔧 for each:
 | `SamsungHealthNotInstalledException` | Samsung Health isn't installed. | Prompt the user to install Samsung Health. |
 | `SamsungHealthNotReadyException` | Samsung Health is installed but the user hasn't completed onboarding (e.g. accepting the Terms and Conditions). | Prompt the user to open and finish Samsung Health onboarding. |
 | `SamsungHealthOutdatedException` | The installed Samsung Health version is too old. | Prompt the user to update Samsung Health. |
-| `SHDateNotValidForEventsException` | The provided `LocalDate` is outside the allowed range for events. | Use a `LocalDate` between 29 days ago (inclusive) and today (inclusive). |
-| `SHDateNotValidForSummariesException` | The provided `LocalDate` is outside the allowed range for summaries. | Use a `LocalDate` between 29 days ago (inclusive) and today (inclusive). |
+| `SHDateNotValidForEventsException` | The provided `LocalDate` is outside the allowed range for events. | Use a `LocalDate` between 180 days ago (inclusive) and today (inclusive). |
+| `SHDateNotValidForSummariesException` | The provided `LocalDate` is outside the allowed range for summaries. | Use a `LocalDate` between 180 days ago (inclusive) and today (inclusive). |
 | `SHHttpRequestException` | An HTTP request failed — usually an error on ROOK servers. | Verify the SDK credentials are configured correctly; if they're fine, read the `httpCode` / `httpMessage` properties and report to ROOK support. |
 | `SHNotAuthorizedException` | The operation needs an authorization level your `client_uuid` doesn't have. | Verify credentials are configured correctly; if they're fine, report to ROOK support — some features require a higher authorization level than the basic one. |
 | `SHNotInitializedException` | The SDK wasn't initialized, or initialization failed. | Call `rookSamsung.initRook()` and wait for a successful result. |
@@ -99,6 +99,13 @@ data class SHDiagnosticSyncState(
     val lastSync: Instant?, // when the last sync was triggered, or null if never
 )
 ```
+
+## Common questions
+
+- **Fewer activity events than workouts in Samsung Health.** Since 4.2.0 the SDK merges workouts that are 3
+  seconds or less apart into one Activity Event (see `references/sync.md`).
+- **Duplicated workouts.** A 4.2.0 fix addresses Samsung Health reporting duplicated workouts; update to
+  4.2.0 if you still see them.
 
 ## Best practices
 
