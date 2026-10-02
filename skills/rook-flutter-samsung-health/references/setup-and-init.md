@@ -23,7 +23,7 @@ Samsung's Health Data SDK. Because of that, it has hard requirements:
 - **Android Studio** Narwhal 4 Feature Drop | 2025.1.4 or higher is recommended.
 - **`minSdk` 29**, **`targetSdk` 36** (set in the app module `build.gradle`).
 - **ROOK packages** — this skill targets the **V4** line:
-  - `rook_sdk_samsung_health` **4.1.0**
+  - `rook_sdk_samsung_health` **4.2.0**
   - `rook_sdk_core` **4.1.1** (required dependency)
 
   Keep these in sync with the official docs; never invent a version.

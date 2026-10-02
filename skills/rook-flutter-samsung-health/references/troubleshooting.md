@@ -8,8 +8,8 @@ them with `.catchError(...)` or a `try/catch` around `await`. Cause 📜 and fix
 | Exception | Cause | Fix |
 |-----------|-------|-----|
 | `ConnectTimeoutException` | An HTTP request waited too long — often an unstable or absent internet connection. | Check connectivity and try again. |
-| `DateNotValidForEventsException` | The provided `DateTime` is outside the allowed range for events. | Use a `DateTime` between 29 days ago (inclusive) and today (inclusive). |
-| `DateNotValidForSummariesException` | The provided `DateTime` is outside the allowed range for summaries. | Use a `DateTime` between 29 days ago (inclusive) and today (inclusive). |
+| `DateNotValidForEventsException` | The provided `DateTime` is outside the allowed range for events. | Use a `DateTime` between 180 days ago (inclusive) and today (inclusive). |
+| `DateNotValidForSummariesException` | The provided `DateTime` is outside the allowed range for summaries. | Use a `DateTime` between 180 days ago (inclusive) and today (inclusive). |
 | `HealthKitDisabledException` | Samsung Health is installed but disabled. | Prompt the user to enable Samsung Health. |
 | `HealthKitNotAllowedException` | Your app isn't allowed to use Samsung Health. | Submit your package name and signing key for a Samsung partnership; for testing, enable developer mode in Samsung Health settings (see `references/setup-and-init.md`). |
 | `HealthKitNotInstalledException` | Samsung Health isn't installed. | Prompt the user to install Samsung Health. |
@@ -109,6 +109,13 @@ final class DiagnosticSyncState {
   final DateTime? lastSync;  // when the last sync was triggered, or null if never
 }
 ```
+
+## Common questions
+
+- **Fewer activity events than workouts in Samsung Health.** Since 4.2.0 the SDK merges workouts that are 3
+  seconds or less apart into one Activity Event (see `references/sync.md`).
+- **Duplicated workouts.** A 4.2.0 fix addresses Samsung Health reporting duplicated workouts; update to
+  4.2.0 if you still see them.
 
 ## Best practices
 

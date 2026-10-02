@@ -17,8 +17,11 @@ There are two kinds of health data, **Summaries** and **Events**:
 
 | Health data | Timezone | Oldest retrievable | Latest retrievable |
 |-------------|----------|--------------------|--------------------|
-| Summary     | UTC      | 29 days ago        | Today (V4)         |
-| Event       | UTC      | 29 days ago        | Today              |
+| Summary     | UTC      | 180 days ago       | Today (V4)         |
+| Event       | UTC      | 180 days ago       | Today              |
+
+> Dates up to 180 days old can be synced with `sync(date:)`, `sync(date:, summary:)` and
+> `syncEvents(date, event)` — no extra permission or configuration is needed.
 
 - **Summary types** — `SHSummarySyncType`: `sleep`, `physical`, `body`.
 - **Event types** — `SHEventSyncType`: `activity`, `bloodGlucose`, `bloodPressure`, `bodyMetrics`,
@@ -31,7 +34,7 @@ There are two kinds of health data, **Summaries** and **Events**:
 — and returns `Future<void>`.
 
 Sync the **last 29 days** of all three summaries (`SLEEP_SUMMARY`, `PHYSICAL_SUMMARY`, `BODY_SUMMARY`) with
-`sync(enableLogs: ...)`:
+`sync(enableLogs: ...)` (always 29 days):
 
 ```dart
 void syncSummariesHistoric() async {
@@ -89,6 +92,13 @@ void syncSingleEvent() async {
   }
 }
 ```
+
+> **Cumulative Hydration and Nutrition:** these events are synced as a **single event with cumulative values**
+> (since 4.2.0), not one event per hour.
+
+> **Merged workouts:** Samsung Health reports custom workouts as separate "sub-workouts" about a second
+> apart. Since 4.2.0 the SDK merges workouts into a single Activity Event when the gap between them is 3
+> seconds or less, so you may see fewer activity events than raw Samsung Health sessions.
 
 ## Sync current-day events
 
