@@ -63,6 +63,14 @@ final class DiagnosticSyncState {
 }
 ```
 
+## Common questions
+
+- **Background Sync doesn't go back as far as the Portal range.** The catch-up range is bounded by the date
+  the current user was registered with the SDK (`updateUserID`), so a recently registered user has less
+  history to sync (see `references/background.md`).
+- **Build fails or old behavior after upgrading.** Run `pod install` or `pod update` in `ios/` so the native
+  `RookSDK` pod updates to match the package (see `references/setup-and-init.md`).
+
 ## Best practices
 
 ### Core

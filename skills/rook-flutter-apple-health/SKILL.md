@@ -14,7 +14,7 @@ description: >
 
 Guides a developer through integrating the ROOK Apple Health SDK on Flutter (iOS): SDK setup, user
 registration, availability and permissions, and syncing health data (summaries and events) both
-manually and automatically in the background.
+manually and automatically in the background (Background Sync range configurable up to 180 days).
 
 ## When to use it
 
