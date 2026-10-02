@@ -11,7 +11,9 @@ Prerequisite: the SDK is initialized and a `user_id` is registered (see `referen
 4. **Handle denial** — if the user denied twice, guide them to open Health Connect settings.
 5. **(Optional) Background read** — for background sync, additionally check/request the background-read
    permission.
-6. **(Optional) Android + optimization permissions** — needed for background steps / background sync.
+6. **(Optional) History read** — only if you sync data older than 29 days (up to 180), manually or via
+   Background Sync configured above 29 days in the ROOK Portal.
+7. **(Optional) Android + optimization permissions** — needed for background steps / background sync.
 
 ## RookPermissionsManager
 
@@ -96,6 +98,8 @@ Its extras:
 - `EXTRA_HEALTH_CONNECT_PERMISSIONS_PARTIALLY_GRANTED` — at least one was granted (also `true` when all are).
 - `EXTRA_HEALTH_CONNECT_BACKGROUND_PERMISSION_GRANTED` — background read was granted (always `false` when
   the device doesn't support background read).
+- `EXTRA_HEALTH_CONNECT_HISTORY_PERMISSION_GRANTED` — history read was granted (always `false` when the
+  device doesn't support history read).
 
 ```kotlin
 // 1. Create the broadcast receiver
@@ -114,6 +118,10 @@ private val healthConnectBroadcastReceiver = object : BroadcastReceiver() {
 
         val backgroundPermissionGranted = intent?.getBooleanExtra(
             RookPermissionsManager.EXTRA_HEALTH_CONNECT_BACKGROUND_PERMISSION_GRANTED, false,
+        ) ?: false
+
+        val historyPermissionGranted = intent?.getBooleanExtra(
+            RookPermissionsManager.EXTRA_HEALTH_CONNECT_HISTORY_PERMISSION_GRANTED, false,
         ) ?: false
 
         // Update your UI
@@ -187,6 +195,42 @@ rookPermissionsManager.checkBackgroundReadStatus().fold(
 comes back in the `EXTRA_HEALTH_CONNECT_BACKGROUND_PERMISSION_GRANTED` extra shown in
 [Request permissions](#request-permissions).
 
+### History read permissions
+
+> **Optional.** Only required if you sync data older than 29 days: manual syncs of a specific date up to 180
+> days old, or Background Sync when the ROOK Portal is configured with more than 29 historic days. If you
+> don't use extended history, skip this section.
+
+Health Connect's history feature allows reading data older than 29 days. The user must grant
+`READ_HEALTH_DATA_HISTORY` **and** the device's Health Connect app version must support the feature. Check
+both with `checkHistoryReadStatus`:
+
+```kotlin
+rookPermissionsManager.checkHistoryReadStatus().fold(
+    {
+        when (it) {
+            HistoryReadStatus.UNAVAILABLE -> {
+                // Not available on this device — ask the user to update Health Connect
+            }
+            HistoryReadStatus.PERMISSION_NOT_GRANTED -> {
+                // Request history read permission
+            }
+            HistoryReadStatus.PERMISSION_GRANTED -> {
+                // Ready to read data older than 29 days
+            }
+        }
+    },
+    { /* Handle error */ },
+)
+```
+
+`requestHealthConnectPermissions` also requests history read (when the device supports it); the result
+comes back in the `EXTRA_HEALTH_CONNECT_HISTORY_PERMISSION_GRANTED` extra shown in
+[Request permissions](#request-permissions).
+
+> If the permission isn't granted, Background Sync silently falls back to 29 days, and a manual sync of a
+> date older than 29 days fails with `MissingHealthConnectPermissionsException`.
+
 ### Customizing permissions
 
 To **reduce** the Health Connect permissions the SDK uses, remove them via the
@@ -200,6 +244,15 @@ marker. The check/request functions then adapt automatically. For example, to dr
         android:name="android.permission.health.READ_MENSTRUATION"
         tools:node="remove" />
 </manifest>
+```
+
+To drop extended history entirely (for example to avoid Play policy issues when you don't need it), remove
+`READ_HEALTH_DATA_HISTORY` the same way:
+
+```xml
+<uses-permission
+    android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"
+    tools:node="remove" />
 ```
 
 Notes:

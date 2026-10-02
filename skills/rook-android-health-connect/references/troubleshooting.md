@@ -7,8 +7,8 @@ branch of `fold`. Cause 📜 and fix 🔧 for each:
 
 | Exception | Cause | Fix |
 |-----------|-------|-----|
-| `HCDateNotValidForEventsException` | The provided `LocalDate` is outside the allowed range for events. | Use a `LocalDate` between 29 days ago (inclusive) and today (inclusive). |
-| `HCDateNotValidForSummariesException` | The provided `LocalDate` is outside the allowed range for summaries. | Use a `LocalDate` between 29 days ago (inclusive) and today (inclusive). |
+| `HCDateNotValidForEventsException` | The provided `LocalDate` is outside the allowed range for events. | Use a `LocalDate` between 180 days ago (inclusive) and today (inclusive). Dates older than 29 days also need the history read permission. |
+| `HCDateNotValidForSummariesException` | The provided `LocalDate` is outside the allowed range for summaries. | Use a `LocalDate` between 180 days ago (inclusive) and today (inclusive). Dates older than 29 days also need the history read permission. |
 | `HCHttpRequestException` | An HTTP request failed — usually an error on ROOK servers. | Verify the SDK credentials are configured correctly; if they're fine, read the `httpCode` / `httpMessage` properties and report to ROOK support. |
 | `HCMissingConfigurationException` | No `RookConfiguration` was provided to the `RookConfigurationManager`. | Provide a `RookConfiguration` and call `setConfiguration` before initializing (see `references/setup-and-init.md`). |
 | `HCNotAuthorizedException` | The operation needs an authorization level your `client_uuid` doesn't have. | Verify credentials are configured correctly; if they're fine, report to ROOK support — some features require a higher authorization level than the basic one. |
@@ -21,7 +21,7 @@ branch of `fold`. Cause 📜 and fix 🔧 for each:
 | `HealthConnectNotInstalledException` | Health Connect isn't installed (only Android 13 and below — it's preinstalled on Android 14+). | Prompt the user to install Health Connect (see snippet below). |
 | `HealthConnectNotSupportedException` | The device doesn't support Health Connect. | Don't run Health Connect operations; use availability checks to detect these devices (see `references/permissions.md`). |
 | `MissingAndroidPermissionsException` | The operation needs Android permissions that aren't granted. | Request the Android permissions (see `references/permissions.md`). |
-| `MissingHealthConnectPermissionsException` | The operation needs Health Connect permissions that aren't granted. | Request the Health Connect permissions (see `references/permissions.md`). |
+| `MissingHealthConnectPermissionsException` | The operation needs Health Connect permissions that aren't granted — including history read when syncing a date older than 29 days. | Request the Health Connect permissions (see `references/permissions.md`); for older dates, also request history read (see `references/permissions.md#history-read-permissions`). |
 
 Prompt to install Health Connect (for `HealthConnectNotInstalledException`):
 
@@ -65,6 +65,15 @@ data class HCDiagnosticSyncState(
     val lastSync: Instant?, // when the last sync was triggered, or null if never
 )
 ```
+
+## Common questions
+
+- **Background Sync only goes back 29 days, but the Portal is set higher.** The history read permission
+  (`READ_HEALTH_DATA_HISTORY`) isn't granted or isn't supported by the device's Health Connect version, so
+  the SDK silently falls back to 29 days. Use `checkHistoryReadStatus` and request the permission (see
+  `references/permissions.md`).
+- **Fewer activity events than workouts in Health Connect.** Since 4.2.0 the SDK merges workouts from the same
+  provider that are 3 seconds or less apart into one event (see `references/sync.md`).
 
 ## Best practices
 

@@ -42,15 +42,20 @@ There are two kinds of health data, both handled by `RookSyncManager`:
 
 | Health data | Timezone | Oldest retrievable | Latest retrievable |
 |-------------|----------|--------------------|--------------------|
-| Summary     | UTC      | 29 days ago        | Today (V4)         |
-| Event       | UTC      | 29 days ago        | Today              |
+| Summary     | UTC      | 180 days ago       | Today (V4)         |
+| Event       | UTC      | 180 days ago       | Today              |
+
+> The **default** oldest date is **29 days**. To sync a date older than 29 days (up to 180) the user must
+> grant the **history read** permission — see `references/permissions.md#history-read-permissions`. Without
+> it, a `sync`/`syncEvents` call with an older date fails with `MissingHealthConnectPermissionsException`.
 
 Summary types: `SLEEP_SUMMARY`, `PHYSICAL_SUMMARY`, `BODY_SUMMARY`. Dates are selected with `LocalDate`;
 a specific type is selected with `SyncType.Summary` / `SyncType.Event`.
 
 ## Sync summaries
 
-Sync the **last 29 days** of all three summaries with `sync(enableLogs)`:
+Sync the **last 29 days** of all three summaries with `sync(enableLogs)` (always 29 days, regardless of
+the history permission):
 
 ```kotlin
 rookSyncManager.sync(enableLogs = isDebug).fold(
@@ -62,7 +67,8 @@ rookSyncManager.sync(enableLogs = isDebug).fold(
 > If the app goes to the background this synchronization will fail. To keep syncing until it finishes
 > (summaries **and** events), use background sync — see `references/background.md`.
 
-Sync all three summaries for **a specific date** with `sync(date)`. It returns an `HCSyncSummariesResult`
+Sync all three summaries for **a specific date** with `sync(date)`; the date can be up to 180 days old if
+history read is granted (29 days otherwise). It returns an `HCSyncSummariesResult`
 holding one result per summary type; you can treat it as a single result (as below) or inspect each:
 
 ```kotlin
@@ -91,7 +97,8 @@ rookSyncManager.sync(date = localDate, summary = summary).fold(
 
 ## Sync events
 
-Sync a chosen event type for a date with `syncEvents(date, event)`:
+Sync a chosen event type for a date with `syncEvents(date, event)` (up to 180 days old with history read
+granted, 29 days otherwise):
 
 ```kotlin
 rookSyncManager.syncEvents(date = localDate, event = event).fold(
@@ -181,6 +188,11 @@ rookSyncManager.getSleepSummary(localDate).fold(
 
 `getPhysicalSummary`, `getBodySummary`, and `getActivityEvents` follow the same shape, differing only in the
 `Synced` data type from the table above.
+
+> **Merged workouts:** some providers (e.g. Samsung Health) write one workout to Health Connect as several
+> "sub-workouts" a second apart. Since 4.2.0 the SDK merges workouts into a single `HCActivityEvent` when
+> they come from the same provider and the gap between them is 3 seconds or less, so you may see fewer
+> activity events than raw Health Connect sessions.
 
 > The returned data classes (`HCSleepSummary`, `HCPhysicalSummary`, `HCBodySummary`, `HCActivityEvent`) are
 > large. Fields that Health Connect doesn't support (or that this SDK doesn't process) are always `null`.
