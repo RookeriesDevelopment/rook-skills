@@ -14,7 +14,9 @@ The availability and permission API is exposed through the static `HCRookHealthP
 4. **Handle denial** — if the user denied twice, guide them to open Health Connect settings.
 5. **(Optional) Background read** — for background sync, additionally check/request the background-read
    permission.
-6. **(Optional) Android + optimization permissions** — needed for background steps / background sync.
+6. **(Optional) History read** — only if you sync data older than 29 days (up to 180), manually or via
+   Background Sync configured above 29 days in the ROOK Portal.
+7. **(Optional) Android + optimization permissions** — needed for background steps / background sync.
 
 ## Check availability
 
@@ -174,6 +176,45 @@ void checkBackgroundReadStatus() async {
 permission is left out of the request). The result arrives on the `requestHealthConnectPermissionsUpdates`
 stream shown in [Request permissions](#request-permissions).
 
+### History read permissions
+
+> **Optional.** Only required if you sync data older than 29 days: manual syncs of a specific date up to 180
+> days old, or Background Sync when the ROOK Portal is configured with more than 29 historic days. If you
+> don't use extended history, skip this section.
+
+Health Connect's history feature allows reading data older than 29 days. The user must grant
+`READ_HEALTH_DATA_HISTORY` **and** the device's Health Connect app version must support the feature. Check
+both with `checkHistoryReadStatus`, which returns an `HCHistoryReadStatus`:
+
+```dart
+void checkHistoryReadStatus() async {
+  try {
+    final historyReadStatus = await HCRookHealthPermissionsManager.checkHistoryReadStatus();
+
+    switch (historyReadStatus) {
+      case HCHistoryReadStatus.unavailable:
+        // Not available on this device — ask the user to update Health Connect
+        break;
+      case HCHistoryReadStatus.permissionNotGranted:
+        // Request history read permission
+        break;
+      case HCHistoryReadStatus.permissionGranted:
+        // Ready to read data older than 29 days
+        break;
+    }
+  } catch (error) {
+    // Handle error
+  }
+}
+```
+
+`requestHealthConnectPermissions` also requests history read when the device supports it (otherwise that
+permission is left out of the request). The result arrives on the `requestHealthConnectPermissionsUpdates`
+stream shown in [Request permissions](#request-permissions).
+
+> If the permission isn't granted, Background Sync silently falls back to 29 days, and a manual sync of a
+> date older than 29 days fails with `MissingPermissionsException`.
+
 ### Customizing permissions
 
 To **reduce** the Health Connect permissions the SDK uses, remove them via the
@@ -187,6 +228,15 @@ marker. The check/request functions then adapt automatically. For example, to dr
         android:name="android.permission.health.READ_MENSTRUATION"
         tools:node="remove" />
 </manifest>
+```
+
+To drop extended history entirely (for example to avoid Play policy issues when you don't need it), remove
+`READ_HEALTH_DATA_HISTORY` the same way:
+
+```xml
+<uses-permission
+    android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"
+    tools:node="remove" />
 ```
 
 Notes:
