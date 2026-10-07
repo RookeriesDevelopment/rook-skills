@@ -15,7 +15,7 @@ description: >
 Guides a developer through integrating the ROOK Health Connect SDK (`com.rookmotion.android:rook-sdk`)
 into a native Android app: SDK setup and initialization, user registration, checking Health Connect
 availability, requesting permissions, and syncing health data (summaries and events) both manually and
-automatically in the background.
+automatically in the background, including optional extended history (up to 180 days).
 
 ## When to use it
 

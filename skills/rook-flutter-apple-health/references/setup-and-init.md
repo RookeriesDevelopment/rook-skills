@@ -21,7 +21,7 @@ of that:
 - **Dart** `>=3.10.4 <4.0.0` and **Flutter** `>=3.0.0`.
 - **iOS deployment target 13.0** (set in the `Podfile`, below).
 - **ROOK SDK versions** — this skill targets the **V4** line:
-  - `rook_sdk_apple_health` → **4.1.0**
+  - `rook_sdk_apple_health` → **4.2.0**
   - `rook_sdk_core` → **4.1.1**
 
   Keep these in sync with the official docs; never invent a version.
@@ -49,6 +49,9 @@ flutter pub get
    ```bash
    pod install
    ```
+
+   > When **upgrading** `rook_sdk_apple_health` (for example to 4.2.0), run `pod install` or `pod update`
+   > again before running the app — the native `RookSDK` pod version changes with the package.
 
 3. Open the `ios` folder with Xcode and select your project file (usually **Runner**).
 

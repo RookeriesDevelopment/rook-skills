@@ -21,8 +21,10 @@ There are two kinds of health data, **Summaries** and **Events**:
 
 - **Summary types** — `AHSummarySyncType`: `sleep`, `physical`, `body`.
 - **Event types** — `AHEventSyncType`: `activity`, `bloodGlucose`, `bloodPressure`, `bodyMetrics`,
-  `heartRate`, `nutrition`, `oxygenation`, `temperature`, `steps`, `calories`, `ecg`.
+  `heartRate`, `hydration`, `nutrition`, `oxygenation`, `temperature`, `steps`, `calories`, `ecg`.
 - A date is selected with a `DateTime`.
+- **Hydration** (`AHEventSyncType.hydration`) is extracted and synced for both summaries and events
+  (since 4.2.0).
 
 ## Sync summaries
 

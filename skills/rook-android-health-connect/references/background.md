@@ -30,11 +30,22 @@ Every time it triggers, Background Sync performs, in order:
    Hydration, Nutrition, Blood Pressure, Blood Glucose.
 2. **Today's summaries** — Sleep.
 3. **Yesterday's summaries** — Sleep, Physical, Body.
-4. **Historic data** — Activity events, Sleep / Physical / Body summaries (up to 29 days back, starting
-   yesterday, for anything not yet synced).
+4. **Historic data** — Activity events, Sleep / Physical / Body summaries (starting yesterday, for anything
+   not yet synced). The range is **29 days by default** and configurable in the ROOK Portal up to 180 days
+   (see [Historic data range](#historic-data-range)).
 
 Summaries in steps 2–3 are only re-synced **if at least 4 hours have passed** since the last successful
 sync **and** the new data differs from what was previously synced.
+
+> Hydration and Nutrition are synced as a **single event with cumulative values**, not one event per hour.
+
+### Historic data range
+
+The Background Sync historic range is configured in the **ROOK Portal** from 0 (off) to 180 days. When it is
+set to **more than 29 days**, Background Sync needs the optional `READ_HEALTH_DATA_HISTORY` permission
+(see `references/permissions.md#history-read-permissions`). If it isn't granted, Background Sync **silently
+falls back to 29 days** — no error is raised. No code change is needed if the Portal is set to 29 days or
+fewer.
 
 ### Request quota
 
@@ -49,6 +60,8 @@ Background Sync needs:
 
 - **Health Connect permissions** — required. See `references/permissions.md`.
 - **Background read permission** — required. See `references/permissions.md`.
+- **History read permission** (`READ_HEALTH_DATA_HISTORY`) — **optional**; only required if the ROOK
+  Portal historic range is above 29 days. See `references/permissions.md`.
 - **Alarm permission** (`SCHEDULE_EXACT_ALARM`) — **optional**; it improves the service's lifetime in
   battery-constrained scenarios. Background Sync works without it and only schedules an alarm if it's
   granted.

@@ -8,14 +8,14 @@ in `catchError` (or the `catch` block of a `try`/`await`). Cause 📜 and fix �
 | Exception | Cause | Fix |
 |-----------|-------|-----|
 | `ConnectTimeoutException` | An HTTP request waited too long — often an unstable or absent internet connection. | Check connectivity and try again. |
-| `DateNotValidForEventsException` | The provided `DateTime` is outside the allowed range for events. | Use a `DateTime` between 29 days ago (inclusive) and today (inclusive). |
-| `DateNotValidForSummariesException` | The provided `DateTime` is outside the allowed range for summaries. | Use a `DateTime` between 29 days ago (inclusive) and today (inclusive). |
+| `DateNotValidForEventsException` | The provided `DateTime` is outside the allowed range for events. | Use a `DateTime` between 180 days ago (inclusive) and today (inclusive). Dates older than 29 days also need the history read permission. |
+| `DateNotValidForSummariesException` | The provided `DateTime` is outside the allowed range for summaries. | Use a `DateTime` between 180 days ago (inclusive) and today (inclusive). Dates older than 29 days also need the history read permission. |
 | `HealthConnectQuotaExceededException` | The Health Connect request quota was exceeded (calling `HCRookSyncManager` functions too often). | Stop syncing for a while; the quota restores over time. Wait ~15–90 minutes. |
 | `HealthKitNotInstalledException` | Health Connect is not installed. | Prompt the user to install Health Connect (see the Play Store listing below). |
 | `HealthKitNotSupportedException` | The device doesn't support Health Connect. | Don't run Health Connect operations; use availability checks to detect these devices (see `references/permissions.md`). |
 | `HttpRequestException` | An HTTP request failed — usually an error on ROOK servers. | Verify the SDK credentials are configured correctly; if they're fine, read the `message` property and report to ROOK support. |
 | `MissingConfigurationException` | No `RookConfiguration` was provided to the `HCRookConfigurationManager`. | Provide a `RookConfiguration` and call `setConfiguration` before initializing (see `references/setup-and-init.md`). |
-| `MissingPermissionsException` | The operation needs Health Connect permissions that aren't granted. | Request the Health Connect permissions (see `references/permissions.md`). |
+| `MissingPermissionsException` | The operation needs Health Connect permissions that aren't granted — including history read when syncing a date older than 29 days. | Request the Health Connect permissions (see `references/permissions.md`); for older dates, also request history read (see `references/permissions.md#history-read-permissions`). |
 | `RecordsNotFoundException` | No health data was found for the requested data type. | Confirm read permissions are granted; then open the writing app (Fitbit, Google Fit, …), confirm its write permissions, and force a sync (pull-to-refresh). |
 | `SDKNotAuthorizedException` | The operation needs an authorization level your `client_uuid` doesn't have. | Verify credentials are configured correctly; if they're fine, report to ROOK support — some features require a higher authorization level than the basic one. |
 | `SDKNotInitializedException` | The SDK wasn't initialized, or initialization failed. | Call `HCRookConfigurationManager.initRook()` and wait for a successful result. |
@@ -69,6 +69,15 @@ final class DiagnosticSyncState {
   final DateTime? lastSync; // when the last sync was triggered, or null if never
 }
 ```
+
+## Common questions
+
+- **Background Sync only goes back 29 days, but the Portal is set higher.** The history read permission
+  (`READ_HEALTH_DATA_HISTORY`) isn't granted or isn't supported by the device's Health Connect version, so
+  the SDK silently falls back to 29 days. Use `checkHistoryReadStatus` and request the permission (see
+  `references/permissions.md`).
+- **Fewer activity events than workouts in Health Connect.** Since 4.2.0 the SDK merges workouts from the
+  same provider that are 3 seconds or less apart into one event (see `references/sync.md`).
 
 ## Best practices
 

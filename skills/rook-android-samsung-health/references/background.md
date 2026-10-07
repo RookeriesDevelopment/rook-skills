@@ -22,11 +22,19 @@ Every time it triggers, Background Sync performs, in order:
    Hydration, Nutrition, Blood Pressure, Blood Glucose.
 2. **Today's summaries** — Sleep.
 3. **Yesterday's summaries** — Sleep, Physical, Body.
-4. **Historic data** — Activity events, Sleep / Physical / Body summaries (up to 29 days back, starting
-   yesterday, for anything not yet synced).
+4. **Historic data** — Activity events, Sleep / Physical / Body summaries (starting yesterday, for anything
+   not yet synced). The range is **29 days by default** and configurable in the ROOK Portal up to 180 days
+   (see [Historic data range](#historic-data-range)).
 
 Summaries in steps 2–3 are only re-synced **if at least 4 hours have passed** since the last successful
 sync **and** the new data differs from what was previously synced.
+
+> Hydration and Nutrition are synced as a **single event with cumulative values**, not one event per hour.
+
+### Historic data range
+
+The Background Sync historic range is configured in the **ROOK Portal** from 0 (off) to 180 days. No code
+change or extra permission is needed.
 
 > Ask users to enable **Continuous HR measurement** on their Galaxy Watch to improve the accuracy of the
 > readings.

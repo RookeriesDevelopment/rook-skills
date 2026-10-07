@@ -21,7 +21,7 @@ still in an alpha state, so results are not always as expected.
 - **Dart** `>=3.10.4 <4.0.0`, **Flutter** `>=3.0.0`.
 - **Android Studio** Narwhal 4 Feature Drop | 2025.1.4 or higher is recommended.
 - **`minSdk` 26**, **`targetSdk` 36** (set in the app module `build.gradle`).
-- **ROOK SDK versions** — this skill targets the **V4** line: `rook_sdk_health_connect` **4.1.0** and its
+- **ROOK SDK versions** — this skill targets the **V4** line: `rook_sdk_health_connect` **4.2.0** and its
   required dependency `rook_sdk_core` **4.1.1**. Keep in sync with the official docs; never invent a version.
 
 ## Install the dependencies
@@ -51,8 +51,12 @@ android {
 `rook_sdk_health_connect` **already declares** the permissions it needs in its own manifest — you do
 **not** need to re-declare them. They are merged into your app automatically and include the Health
 Connect read permissions (steps, sleep, heart rate, calories, distance, weight, blood glucose, etc.) plus
-`ACTIVITY_RECOGNITION`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_HEALTH`, `POST_NOTIFICATIONS`, and
-`RECEIVE_BOOT_COMPLETED`.
+`ACTIVITY_RECOGNITION`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_HEALTH`, `POST_NOTIFICATIONS`,
+`RECEIVE_BOOT_COMPLETED`, and `READ_HEALTH_DATA_HISTORY`.
+
+> `READ_HEALTH_DATA_HISTORY` (new in 4.2.0) lets the SDK read data older than 29 days (up to 180). It is
+> **optional**: if you don't use extended history, you can remove it with `tools:node="remove"` to avoid
+> policy issues when publishing your app (see `references/permissions.md`).
 
 > Google may require an explanation (and sometimes a video) for the `FOREGROUND_SERVICE` /
 > `FOREGROUND_SERVICE_HEALTH` permissions, which power the Background Steps feature (tracking steps and

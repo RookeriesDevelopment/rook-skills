@@ -15,7 +15,7 @@ description: >
 Guides a developer through integrating the ROOK Samsung Health SDK (`io.tryrook.android:rook-sdk-samsung`)
 into a native Android (Kotlin) app: SDK setup and initialization, user registration, checking Samsung
 Health availability, requesting permissions, and syncing health data (summaries and events) both
-manually and automatically in the background.
+manually and automatically in the background, including extended history (up to 180 days).
 
 ## When to use it
 

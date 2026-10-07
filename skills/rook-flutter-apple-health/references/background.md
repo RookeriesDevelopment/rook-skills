@@ -11,7 +11,8 @@ iOS-only, so gate every call with `Platform.isIOS`.
 There are two independent components you can enable — **combine both** for the best experience:
 
 - **Background Sync** (`AHRookBackgroundSync`) — syncs roughly every hour while the app is closed / in
-  the background, up to **14 days into the past**.
+  the background, **29 days into the past by default** (configurable up to 180 days in the ROOK Portal — see
+  [Historic data range](#historic-data-range)).
 - **Continuous Upload** (`AHRookContinuousUpload`) — syncs every time the user opens the app.
 
 > The Xcode **HealthKit → Background delivery** and **Background Modes → Background fetch** capabilities
@@ -62,6 +63,14 @@ void enableIOSBackgroundSync() async {
   }
 }
 ```
+
+### Historic data range
+
+The Background Sync historic range is configured in the **ROOK Portal** from 0 (off) to 180 days; the default
+is 29 days. No code change is needed. The ranges Background Sync catches up on are bounded by the date the
+current user was registered with the SDK, so it won't look back further than that.
+
+> Since 4.2.0, updated sleep summaries are detected and uploaded even when their date hasn't changed.
 
 > Setting `enableBackgroundSync: true` in `RookConfiguration` at init time also starts Background Sync
 > (see `references/setup-and-init.md`). The recommended pattern is to leave it `false` and call
